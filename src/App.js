@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Search from './pages/search';
 import BlogsNav from './pages/blogs-nav';
+import Profile from './pages/profile';
 import './App.css';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
     </Route>
     <Route path='/blogs-nav'>
       <BlogsNav />
+    </Route>
+    <Route path='/profile'>
+      <Profile />
     </Route>
   </Router>
 }

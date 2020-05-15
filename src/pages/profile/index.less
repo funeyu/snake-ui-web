@@ -1,0 +1,71 @@
+.nav {
+    .aside {
+        width: 230px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        background-color: #f4f2f1;
+        color: #fff;
+        text-align: center;
+        border-right: 1px solid #f4f2f1;
+        .logo {
+            cursor: pointer;
+            width: 120px;
+        }
+        .user {
+            text-align: center;
+            img {
+                width: 40px;
+            }
+            .name {
+                color: #333;
+                font-size: 16px;
+            }
+        }
+        .tip {
+            padding: 0;
+            color: #bbb;
+            margin: -10px 0 10px 0;
+            font-weight: 500;
+            font-size: 12px;
+        }
+        .selected {
+            border-left: 5px #2BCF61 solid;
+            color: #2a3e52!important;
+            background-color: #f4f8fb;
+            border-bottom: 1px solid #f4f2f1;
+            border-top: 1px solid #f4f2f1;
+        }
+        .nav {
+            line-height: 40px;
+            color: #686868;
+            &:hover {
+                cursor: pointer;
+                background-color: #ddd;
+                color: #fff;
+                z-index: 9;
+            }
+        }
+    }
+    .main {
+        margin: 20px 20px 0 240px;
+        .selection {
+            margin: 10px 0;
+            font-size: 14px;
+            span {
+                cursor: pointer;
+                display: inline-block;
+                padding: 4px 8px;
+            }
+            .selected {
+                color: #2BCF61;
+            }
+        }
+        .notgood {
+            transform:rotate(180deg);
+        }
+        .result {
+            margin-left: 30px;
+        }
+    }
+}

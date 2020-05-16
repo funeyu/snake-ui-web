@@ -7,7 +7,6 @@ export default ({keyword=''})=> {
     const history = useHistory();
 
     const enter = function(event) {
-      console.log('event', event.charCode);
       if (event.charCode === 13) {
         if (event.target.value) {
           history.push(`/search?keyword=${event.target.value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);

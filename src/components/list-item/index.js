@@ -25,7 +25,7 @@ export default ({l, keywords, mode, operation})=> {
       let splits = s.split(k);
       s = splits.join('<em>'+k+'</em>');
     });
-    return (<div dangerouslySetInnerHTML={{__html:s}} />);
+    return (<div dangerouslySetInnerHTML={{__html:s}}></div>);
   }
 
   return (

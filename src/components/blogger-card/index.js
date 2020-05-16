@@ -6,7 +6,8 @@ export default ({favicon, title, url, description})=> {
         window.location.href = url;
     }
     
-    return <li className='card' onClick={goto}>
+    return (
+    <li className='card' onClick={goto}>
         <img className='avatar' alt='favicon' src={favicon} />
         <div className='profile'>
             <p className='title'>{title}</p>
@@ -14,4 +15,5 @@ export default ({favicon, title, url, description})=> {
             <p className='description'>{description}</p>
         </div>
     </li>
+    )
 }

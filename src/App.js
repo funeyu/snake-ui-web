@@ -7,20 +7,22 @@ import Profile from './pages/profile';
 import './App.css';
 
 function App() {
-  return <Router>
-    <Route path='/' exact>
-      <Home />
-    </Route>
-    <Route path='/search'>
-      <Search />
-    </Route>
-    <Route path='/blogs-nav'>
-      <BlogsNav />
-    </Route>
-    <Route path='/profile'>
-      <Profile />
-    </Route>
-  </Router>
+  return (
+    <Router>
+      <Route path='/' exact>
+        <Home />
+      </Route>
+      <Route path='/search'>
+        <Search />
+      </Route>
+      <Route path='/blogs-nav'>
+        <BlogsNav />
+      </Route>
+      <Route path='/profile'>
+        <Profile />
+      </Route>
+    </Router>
+  )
 }
 
 export default App;

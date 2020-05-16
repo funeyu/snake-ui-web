@@ -14,6 +14,7 @@ export default ()=> {
   const goHome = ()=> {
     history.push('/');
   }
+  
   const api = function(lang, type) {    
     fetch(`/api/snake/blog/nav?lang=${lang}&type=${type}`)
       .then((response)=> response.json())
@@ -50,21 +51,23 @@ export default ()=> {
   }, [where]);
 
 
-  return <div className='nav'>
-    <aside className='aside'>
-      <img className='logo' src= {soso} alt='soso' onClick={goHome}/>
-      <h3 className='tip'>热门博客列表</h3>
-      <div className={`${where.lang === 1 ? 'nav selected' : 'nav'}`} onClick={()=> changeWhere({lang: 1, type: 1})}>国内博客</div>
-      <div className={`${where.lang === 2 ? 'nav selected' : 'nav'}`} onClick={()=>changeWhere({lang: 2, type: 1})}>国外博客</div>
-    </aside>
-    <main className='main'>
-      <div className='selection'>
-        <span className={`${where.type === 1 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 1})}><span className='iconfont icon-hot'></span>热门博客主</span>
-        <span className={`${where.type === 2 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 2})}><span className='iconfont icon-all'></span>多产博客主</span>
-      </div>
-      {
-        blogs.map(blog=> <BloggerCard key={blog.id} {...blog} />)
-      }
-    </main>
-  </div>
+  return (
+    <div className='nav'>
+      <aside className='aside'>
+        <img className='logo' src= {soso} alt='soso' onClick={goHome}/>
+        <h3 className='tip'>热门博客列表</h3>
+        <div className={`${where.lang === 1 ? 'nav selected' : 'nav'}`} onClick={()=> changeWhere({lang: 1, type: 1})}>国内博客</div>
+        <div className={`${where.lang === 2 ? 'nav selected' : 'nav'}`} onClick={()=>changeWhere({lang: 2, type: 1})}>国外博客</div>
+      </aside>
+      <main className='main'>
+        <div className='selection'>
+          <span className={`${where.type === 1 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 1})}><span className='iconfont icon-hot'></span>热门博客主</span>
+          <span className={`${where.type === 2 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 2})}><span className='iconfont icon-all'></span>多产博客主</span>
+        </div>
+        {
+          blogs.map(blog=> <BloggerCard key={blog.id} {...blog} />)
+        }
+      </main>
+    </div>
+  );
 }

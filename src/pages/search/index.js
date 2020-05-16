@@ -19,7 +19,7 @@ export default ()=> {
     const [sort, setSort] = useState(1); // 1代表默认排序，2代表按照时间倒序
     const [showSort, updateShowSort] = useState(false);
     const [loading, updateLoading] = useState(false);
-    const listenerRef = useRef()
+    const listenerRef = useRef();
 
     const goHome = ()=> {
         history.push('/');
@@ -131,7 +131,8 @@ export default ()=> {
       });
     };
 
-    return <div className='search-page'>
+    return (
+      <div className='search-page'>
         <Header />
         <div className='search-header'>
             <img className='logo' src={Banner} alt='logo' onClick={goHome}/>
@@ -166,5 +167,6 @@ export default ()=> {
           }
         </div>
         <Footer />
-    </div>
+      </div>
+    )
 }

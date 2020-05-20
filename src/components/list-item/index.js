@@ -12,7 +12,6 @@ const timeAgo = new TimeAgo('zh');
 
 // mode: 分为搜索列表模式(search) 和 收藏点赞个人列表(profile)
 export default ({l, keywords, mode, operation})=> {
-  console.log('query', query);
   const queryObj = query(useLocation());
 
   const renderTitle = function(title, keywords) {

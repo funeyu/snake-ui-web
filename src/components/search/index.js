@@ -1,5 +1,6 @@
 import React, { useState, } from 'react';
 import { useHistory } from 'react-router-dom';
+import ga from 'utils/ga';
 import './index.less';
 
 export default ({keyword=''})=> {
@@ -9,7 +10,7 @@ export default ({keyword=''})=> {
     const enter = function(event) {
       if (event.charCode === 13) {
         if (event.target.value) {
-          window.ga('send', 'event', 'search', 'enter', event.target.value);
+          ga('search', 'enter', event.target.value);
           history.push(`/search?keyword=${event.target.value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
         } else {
           history.push('/');
@@ -25,7 +26,7 @@ export default ({keyword=''})=> {
       if(!value) {
         return history.push('/');
       }
-      window.ga('send', 'event', 'search', 'enter', value);
+      ga('search', 'click', value);
       history.push(`/search?keyword=${value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
     }
 

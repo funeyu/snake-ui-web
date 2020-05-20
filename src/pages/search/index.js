@@ -52,11 +52,7 @@ export default ()=> {
     }
 
     useEffect(()=> {
-      ga.event({
-        category: 'search', 
-        action: 'click',
-        label: queryObj.keyword,
-      });
+      ga('search', 'click', queryObj.keyword);
       searchApi(queryObj.keyword, sort);
       return ()=> {
         document.addEventListener('click', listenerRef.current, false);
@@ -82,11 +78,7 @@ export default ()=> {
     }
 
     const changePage = (event, page)=> {
-      ga.event({
-        category: 'search',
-        action: 'changepage',
-        label: `${page}`
-      });
+      ga('search', 'changepage', `${page}`);
       updateLoading(true);
       fetch(`/api/snake/search/?word=${queryObj.keyword}&page=${page}&sort=${sort}`)
         .then((response)=> response.json())

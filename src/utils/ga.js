@@ -1,9 +1,7 @@
-import ReactGA from 'react-ga';
-if (process.env.NODE_ENV === 'development') {
-    ReactGA.initialize('uuuuuu');
-} else {
-    ReactGA.initialize('UA-166967746-1');
+const event = function(category, name, label) {
+    if (process.env.NODE_ENV !== 'development') {
+        window.ga('send', 'event', category, name, label);
+    }
 }
 
-
-export default ReactGA;
+export default event;

@@ -14,11 +14,7 @@
         color: #9195a3;
         a {
             text-decoration: none;
-        }
-        .il {
-            float: left;
-            margin-right: 30px;
-        }
+        }        
         .mid {
             width: 300px;
             position: absolute;
@@ -30,9 +26,23 @@
                 margin: 0 4px;
             }
         }
+        @media (max-width: 480px) {
+            .mid {
+                display: none;
+            }
+        }
         .ir {
             float: right;
             margin-left: 30px;
+        }
+    }
+    @media (max-width: 480px) {
+        .container {
+            width: 100%;
+            text-align: center;
+            .ir {
+                display: none;
+            }
         }
     }
 }

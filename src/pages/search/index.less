@@ -6,11 +6,22 @@
                 float: right;
             }
         }
+        @media (max-width: 480px) {
+            .container {
+                .links {
+                    display: none;
+                }
+                .user .login {
+                    display: none;
+                }
+            }
+        }
     }
     .search-header {
         position: absolute;
         left: 0;
         top: 7px;
+        width: 100%;
         .logo {
             cursor: pointer;
             width: 120px;
@@ -21,6 +32,17 @@
         .area {
             margin-left: 160px;
             width: 600px;
+        }
+        @media (max-width: 480px) {
+            .logo {
+                width: 100px;
+                left: 10px;
+                top: -10px;
+            }
+            .area {
+                margin-left: 110px;
+                width: 70%;
+            }
         }
     }
     .result-list {
@@ -76,6 +98,17 @@
                         }
                     }
                 }
+            }
+        }
+    }
+    @media (max-width: 480px)  {
+        .result-list {
+            margin-left: 15px;
+            width: auto;
+            .result {
+                height: calc(100vh - 180px);
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
             }
         }
     }

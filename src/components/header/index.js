@@ -57,7 +57,7 @@ export default ()=> {
           </div>
           <div className='user'>
           {
-            !info.logined ? <a className='login' href='/api/snake/github/'>通过github登录</a>
+            !info.logined ? <a className='login' href='/api/snake/github/'>登录</a>
               : <div className='avatar'>
               <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
                 unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 

@@ -1,12 +1,14 @@
 .header {
     background: #f4f2f1;
     line-height: 45px;
+    height: 45px;
     .container {
         overflow: hidden;
         width: 1180px;
         margin: 0 auto;
         .links {
             margin-right: 180px;
+            margin-left: 10px;
             span {
                 cursor: pointer;
                 font-size: 13px;
@@ -16,6 +18,11 @@
                 text-decoration: none;
                 &:hover{
                     color: #2BCF61;
+                }
+            }
+            @media (max-width: 400px) {
+                span {
+                    margin-right: 10px;
                 }
             }
         }

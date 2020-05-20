@@ -30,10 +30,21 @@
             width: 20px;
             left: -25px;
         }
+        @media (max-width: 480px)  {
+            .avatar {
+                width: 15px;
+                left: 0;
+            }
+        }
         .avatarIcon {
             position: absolute;
             font-size: 25px;
             left: -30px;
+        }
+    }
+    @media (max-width: 480px)  {
+        .title {
+            padding-left: 10px;
         }
     }
     .collect {
@@ -84,6 +95,11 @@
         width: 470px; 
         overflow: hidden; 
         text-overflow:ellipsis;
+    }
+    @media (max-width: 480px)  {
+        .link {
+            width: 65%;
+        }
     }
     .no-decoration {
         text-decoration: none;

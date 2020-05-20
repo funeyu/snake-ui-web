@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import {fetch} from 'whatwg-fetch';
+import ReactGA from 'react-ga';
 import query from 'utils/query';
 import ListItem from 'components/list-item';
 import Pagination from '@material-ui/lab/Pagination';
@@ -10,6 +11,8 @@ import Search from 'components/search';
 import Nothing from 'components/nothing';
 import Footer from 'components/footer';
 import './index.less';
+
+ReactGA.initialize('UA-166967746-1');
 
 export default ()=> {
     const queryObj = query(useLocation());
@@ -51,6 +54,11 @@ export default ()=> {
     }
 
     useEffect(()=> {
+      ReactGA.event({
+        category: 'search', 
+        action: 'click',
+        label: queryObj.keyword,
+      });
       searchApi(queryObj.keyword, sort);
       return ()=> {
         document.addEventListener('click', listenerRef.current, false);
@@ -76,6 +84,11 @@ export default ()=> {
     }
 
     const changePage = (event, page)=> {
+      ReactGA.event({
+        category: 'search',
+        action: 'changepage',
+        label: `${page}`
+      });
       updateLoading(true);
       fetch(`/api/snake/search/?word=${queryObj.keyword}&page=${page}&sort=${sort}`)
         .then((response)=> response.json())

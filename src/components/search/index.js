@@ -9,6 +9,7 @@ export default ({keyword=''})=> {
     const enter = function(event) {
       if (event.charCode === 13) {
         if (event.target.value) {
+          window.ga('send', 'event', 'search', 'enter', event.target.value);
           history.push(`/search?keyword=${event.target.value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
         } else {
           history.push('/');
@@ -24,6 +25,7 @@ export default ({keyword=''})=> {
       if(!value) {
         return history.push('/');
       }
+      window.ga('send', 'event', 'search', 'enter', value);
       history.push(`/search?keyword=${value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
     }
 

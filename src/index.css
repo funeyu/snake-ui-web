@@ -9,8 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 @media (max-width:480px) {
-  body {
+  html, body {
     overflow: hidden;
+    max-width: 480px;
   }
 }
 html {

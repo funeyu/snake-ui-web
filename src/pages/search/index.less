@@ -65,6 +65,7 @@
                 position: relative;
                 cursor: pointer;
                 b {
+                    display: inline-block;
                     font-size: 12px;
                 }
                 .selection {
@@ -98,6 +99,11 @@
                         }
                     }
                 }
+            }
+        }
+        @media (max-width: 480px) {
+            .abstract {
+                width: auto;
             }
         }
     }

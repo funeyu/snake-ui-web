@@ -9,13 +9,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 @media (max-width:480px) {
-  html, body {
+  body {
     overflow: hidden;
     max-width: 480px;
   }
 }
 html {
   height: 100%;
+  overflow-y: scroll;
 }
 
 code {

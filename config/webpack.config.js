@@ -118,14 +118,25 @@ module.exports = function(webpackEnv) {
           options: {
             sourceMap: isEnvProduction && shouldUseSourceMap,
           },
-        },
-        {
-          loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true,
-          },
         }
       );
+      let loader = require.resolve(preProcessor);
+      if (preProcessor === 'less-loader') {
+        loader = {
+          loader,
+          options: {
+            lessOptions: {
+              javascriptEnabled: true,
+              modifyVars: {
+                'primary-color': '#2BCF61',
+                'link-color': '#2BCF61',
+                'border-radius-base': '2px',
+              },
+            },
+          }
+        }
+      }
+      loaders.push(loader);
     }
     return loaders;
   };

@@ -4,12 +4,13 @@
     height: 45px;
     .container {
         overflow: hidden;
-        width: 1180px;
+        width: 980px;
         margin: 0 auto;
         .links {
-            margin-right: 180px;
+            margin-right: 60px;
             margin-left: 10px;
             span {
+                position: relative;
                 cursor: pointer;
                 font-size: 13px;
                 margin-right: 30px;
@@ -19,6 +20,31 @@
                 &:hover{
                     color: #2BCF61;
                 }
+                .num {
+                    background-color: #2BCF61;
+                    border-radius: 50%;
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    top: 0;
+                    color: #fff;
+                    position: absolute;
+                }
+                .tri {
+                    position: absolute;
+                    bottom: -14px;
+                    left: 30px;
+                    border-left: 8px solid transparent;
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid #fff;
+                }
+            }
+            .hot {
+                color: #2BCF61;
+            }
+            .active {
+                font-size: 16px;
             }
             @media (max-width: 400px) {
                 span {

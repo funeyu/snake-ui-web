@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Modal, Input } from 'antd';
 import Img from 'react-image';
 import UserInfoHook from 'hooks/userInfoHook';
 import earth from 'images/earth.png';
 import './index.less';
 
-export default ()=> {
+export default ({active})=> {
   const history = useHistory();
   const listenerRef = useRef();
   const [showProfile, updateShowProfile] = useState(false);
@@ -47,13 +48,22 @@ export default ()=> {
   
   const info = UserInfoHook();
 
+  const record = function() {
+    Modal.confirm({
+      title: '请输入要填写的地址！',
+      content: <Input />,
+      okText: '确定',
+    });
+  }
   return (
     <div className='header'>
         <div className='container'>
           <div className='links'>
-              <span onClick={()=> alert('待开发！')}>收录博客</span>
-              <span onClick={()=> window.location.href = 'https://gohugo.io/'}>搭建博客工具</span>
-              <span href='/#'>功能建议</span>
+              <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> window.location.href = 'https://gohugo.io/'}>昨日新增博文<b className='num'></b></span>
+              <span className={active === 'hot' ? 'hot active' : 'hot'} onClick={()=> window.location.href = 'https://gohugo.io/'}><b className='iconfont icon-hot hot'></b>热门博主</span>
+              <span className={active === 'book' ? 'hot active' : 'hot'} onClick={()=> history.push('/book')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
+              <span onClick={record}>收录博客</span>
+              <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
           </div>
           <div className='user'>
           {

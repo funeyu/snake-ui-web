@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Modal, Input } from 'antd';
 import Img from 'react-image';
+import { fetch } from 'whatwg-fetch';
 import UserInfoHook from 'hooks/userInfoHook';
+import { check } from 'utils/api.js';
 import earth from 'images/earth.png';
 import './index.less';
 
@@ -49,19 +51,45 @@ export default ({active})=> {
   const info = UserInfoHook();
 
   const record = function() {
+    window.recordUrl = '';
     Modal.confirm({
       title: '请输入要填写的地址！',
-      content: <Input />,
-      okText: '确定',
+      content: <Input onChange={(event)=> {
+        window.recordUrl = event.target.value;
+      }}/>,
+      okText: '确定', cancelText: '取消',
+      onOk: ()=> {
+        if (!window.recordUrl) {
+          Modal.error({title: '请填写url地址！'});
+          return Promise.reject('-1');
+        }
+        return check(window.recordUrl).then(data=> {
+          if(data) {
+            return fetch(`/api/snake/blog/add?u=${window.recordUrl}`)
+            .then((response)=> response.json())
+            .then(function(res) {
+              if(res.code!== 10000) {
+                Modal.error({title: res.msg});
+                return Promise.reject('-1');
+              } else {
+                Modal.info({title: res.data})
+              }
+            })
+          } else {
+            Modal.error({title: '输入的不是有效的url！'});
+            return Promise.reject('-1');
+          }
+        });
+      }
     });
   }
   return (
     <div className='header'>
         <div className='container'>
           <div className='links'>
-              <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> window.location.href = 'https://gohugo.io/'}>昨日新增博文<b className='num'></b></span>
-              <span className={active === 'hot' ? 'hot active' : 'hot'} onClick={()=> window.location.href = 'https://gohugo.io/'}><b className='iconfont icon-hot hot'></b>热门博主</span>
-              <span className={active === 'book' ? 'hot active' : 'hot'} onClick={()=> history.push('/book')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
+              <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='tri'></b>昨日新增博文<b className='num'></b></span>
+              <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博主</span>
+              <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
               <span onClick={record}>收录博客</span>
               <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
           </div>

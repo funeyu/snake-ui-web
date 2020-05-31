@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
+import Header from 'components/header';
 import BloggerCard from 'components/blogger-card';
 import soso from '../../images/soso.png'
 import './index.less';
@@ -53,13 +54,14 @@ export default ()=> {
 
   return (
     <div className='nav'>
-      <aside className='aside'>
+      <Header active='blogs'/>
+      <aside className='side'>
         <img className='logo' src= {soso} alt='soso' onClick={goHome}/>
         <h3 className='tip'>热门博客列表</h3>
-        <div className={`${where.lang === 1 ? 'nav selected' : 'nav'}`} onClick={()=> changeWhere({lang: 1, type: 1})}>国内博客</div>
-        <div className={`${where.lang === 2 ? 'nav selected' : 'nav'}`} onClick={()=>changeWhere({lang: 2, type: 1})}>国外博客</div>
+        <div className={`${where.lang === 1 ? 'side-bar selected' : 'side-bar'}`} onClick={()=> changeWhere({lang: 1, type: 1})}>国内博客</div>
+        <div className={`${where.lang === 2 ? 'side-bar selected' : 'side-bar'}`} onClick={()=>changeWhere({lang: 2, type: 1})}>国外博客</div>
       </aside>
-      <main className='main'>
+      <main className='m'>
         <div className='selection'>
           <span className={`${where.type === 1 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 1})}><span className='iconfont icon-hot'></span>热门博客主</span>
           <span className={`${where.type === 2 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 2})}><span className='iconfont icon-all'></span>多产博客主</span>

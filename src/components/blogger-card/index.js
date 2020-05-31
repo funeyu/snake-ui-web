@@ -1,4 +1,6 @@
 import React from 'react';
+import Img from 'react-image';
+import earth from 'images/earth.png';
 import './index.less'
 
 export default ({favicon, title, url, description})=> {
@@ -8,7 +10,9 @@ export default ({favicon, title, url, description})=> {
     
     return (
     <li className='card' onClick={goto}>
-        <img className='avatar' alt='favicon' src={favicon} />
+        {
+            <Img className='avatar' alt='avatar' src={[favicon, `${url}/favicon.ico`]} unloader={<img className='avatar' alt='avatar' src={earth} />}/>
+        }
         <div className='profile'>
             <p className='title'>{title}</p>
             <a className='url' href={url} target='_blank'>{url}</a>

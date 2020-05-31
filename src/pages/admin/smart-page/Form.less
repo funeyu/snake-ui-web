@@ -1,0 +1,42 @@
+.ant-advanced-search-form {
+  :global {
+    .ant-form-item {
+      margin-bottom: 24px;
+      margin-right: 0;
+      display: flex;
+      > .ant-form-item-label {
+        width: auto;
+        line-height: 32px;
+        padding-right: 8px;
+      }
+      .ant-form-item-control {
+        line-height: 32px;
+      }
+    }
+    .ant-form-item-control-wrapper {
+      flex: 1;
+    }
+  }
+}
+:global {
+  .ant-form-item-label {
+    label {
+      line-height: 20px;
+      display: inline-block;
+      white-space:normal; 
+    }
+  }
+  .ant-form-item-require {
+    .ant-form-item-label {
+      label:before {
+        display: inline-block;
+        margin-right: 4px;
+        color: #f5222d;
+        font-size: 14px;
+        font-family: SimSun,sans-serif;
+        line-height: 1;
+        content: '*';
+      }
+    }
+  }
+}

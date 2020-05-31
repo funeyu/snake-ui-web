@@ -1,6 +1,8 @@
 .nav {
-    .aside {
-        width: 230px;
+    border-top: 2px solid #f4f2f1;
+    margin-bottom: 60px;
+    .side {
+        width: 200px;
         height: 100%;
         position: fixed;
         top: 0;
@@ -9,8 +11,10 @@
         text-align: center;
         border-right: 1px solid #f4f2f1;
         .logo {
+            margin-top: -4px;
             cursor: pointer;
             width: 120px;
+            margin-bottom: 50px;
         }
         .tip {
             padding: 0;
@@ -20,14 +24,13 @@
             font-size: 12px;
         }
         .selected {
-            border-left: 5px #2BCF61 solid;
+            border-left:4px solid #2BCF61!important;
             color: #2a3e52!important;
             background-color: #f4f8fb;
-            border-bottom: 1px solid #f4f2f1;
-            border-top: 1px solid #f4f2f1;
         }
-        .nav {
+        .side-bar {
             line-height: 40px;
+            border-left: 4px solid transparent;
             color: #686868;
             &:hover {
                 cursor: pointer;
@@ -37,8 +40,8 @@
             }
         }
     }
-    .main {
-        margin: 20px 20px 0 240px;
+    .m {
+        margin: 20px 20px 0 210px;
         .selection {
             margin: 10px 0;
             font-size: 14px;

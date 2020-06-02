@@ -1,14 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Modal, Input } from 'antd';
 import Img from 'react-image';
 import { fetch } from 'whatwg-fetch';
-import UserInfoHook from 'hooks/userInfoHook';
 import { check } from 'utils/api.js';
+import UserContext from 'contexts/user.js';
 import earth from 'images/earth.png';
+import logo from 'images/soso.png';
 import './index.less';
 
-export default ({active})=> {
+export default ({active, showLogo})=> {
   const history = useHistory();
   const listenerRef = useRef();
   const [showProfile, updateShowProfile] = useState(false);
@@ -48,7 +49,6 @@ export default ({active})=> {
     });
   };
   
-  const info = UserInfoHook();
 
   const record = function() {
     window.recordUrl = '';
@@ -83,32 +83,39 @@ export default ({active})=> {
       }
     });
   }
+
+  const info = useContext(UserContext);
   return (
     <div className='header'>
-        <div className='container'>
-          <div className='links'>
-              <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='tri'></b>昨日新增博文<b className='num'></b></span>
-              <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博主</span>
-              <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
-              <span onClick={record}>收录博客</span>
-              <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
-          </div>
-          <div className='user'>
-          {
-            !info.logined ? <a className='login' href='/api/snake/github/'>登录</a>
-              : <div className='avatar'>
-              <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
-                unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 
-              />
-              <div className='dropdown' style={{display: showProfile ? 'block' : 'none'}}>
-                <span className='tri'></span>
-                <span className='link' onClick={()=> router('/profile')}>收藏<b>({info.collect})</b></span>
-                <div role='none' className='line'></div>
-                <span className='link' onClick={()=> router('/profile')}>点赞/踩<b>({info.star}/{info.unstar})</b></span>
-              </div>
+      {
+        showLogo && <div className='logo'>
+        <img src={logo} alt='logo' onClick={()=> router('/')}/>
+      </div>
+      }
+      <div className='container'>
+        <div className='links'>
+            <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/yesterday')}><b className='tri'></b>昨新增博文<b className='num'></b></span>
+            <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博主</span>
+            <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
+            <span onClick={record}>收录博客</span>
+            <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
+        </div>
+        <div className='user'>
+        {
+          !info.logined ? <a className='login' href='/api/snake/github/'>登录</a>
+            : <div className='avatar'>
+            <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
+              unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 
+            />
+            <div className='dropdown' style={{display: showProfile ? 'block' : 'none'}}>
+              <span className='tri'></span>
+              <span className='link' onClick={()=> router('/profile')}>收藏<b>({info.collect})</b></span>
+              <div role='none' className='line'></div>
+              <span className='link' onClick={()=> router('/profile')}>点赞/踩<b>({info.star}/{info.unstar})</b></span>
             </div>
-          }
           </div>
+        }
+        </div>
       </div>
   </div>
   )

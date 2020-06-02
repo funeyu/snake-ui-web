@@ -1,8 +1,8 @@
 .card {
+    position: relative;
     box-sizing: border-box;
     padding: 4px 8px;
     list-style: none;
-    cursor: pointer;
     background-color: #f4f2f1;
     width: 23%;
     height: 130px;
@@ -18,8 +18,22 @@
         width: 30px;
         float: left;
     }
-    .profile {
+    .follow {
+        cursor: pointer;
+        position: absolute;
+        right: 2px;
+        font-size: 12px;
+        background-color: #2BCF61;
+        padding: 0 4px;
+        border-radius: 2px;
+        color: #fff;
+    }
+    .followed {
+        background-color: #ccc;
+    }
+    .abstract {
         overflow: hidden;
+        margin-right: 30px;
         padding-left: 6px;
         .title {
             font-weight: 700;

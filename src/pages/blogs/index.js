@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
+import { message } from 'antd';
 import Header from 'components/header';
+import UserContext from 'contexts/user';
 import BloggerCard from 'components/blogger-card';
-import soso from '../../images/soso.png'
+import soso from '../../images/soso.png';
 import './index.less';
 
 export default ()=> {
@@ -10,11 +12,9 @@ export default ()=> {
   const [blogs, updateBlogs] = useState([]);
   const [where, updateWhere] = useState({lang: 1, type: 1});
 
-  console.log('where', where);
-
   const goHome = ()=> {
     history.push('/');
-  }
+  };
   
   const api = function(lang, type) {    
     fetch(`/api/snake/blog/nav?lang=${lang}&type=${type}`)
@@ -24,7 +24,7 @@ export default ()=> {
       }).catch(function(ex) {
         console.log('parsing failed', ex);
       });
-  }
+  };
   
   // where 包含 {lang, type} 
   // lang: 1为国内，2为国外； type: 1为热门博客主，2为多产博客主；
@@ -44,14 +44,27 @@ export default ()=> {
         }
       }
       return where;
-    })
-  }
+    });
+  };
 
   useEffect(()=> {
     api(where.lang, where.type);
   }, [where]);
 
+  const follow = useCallback((domain)=> {
+    fetch(`/api/snake/search/op/`, {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: 3, info: {domain}})
+    }).then(function(items) {
+        message.info('操作成功！');
+        api(where.lang, where.type);
+      }).catch(function(ex) {
+        console.log('parsing failed', ex);
+      });
+  }, []);
 
+  const userInfo = useContext(UserContext);
   return (
     <div className='nav'>
       <Header active='blogs'/>
@@ -67,7 +80,7 @@ export default ()=> {
           <span className={`${where.type === 2 ? 'selected' : ''}`} onClick={()=> changeWhere({lang: where.lang, type: 2})}><span className='iconfont icon-all'></span>多产博客主</span>
         </div>
         {
-          blogs.map(blog=> <BloggerCard key={blog.id} {...blog} />)
+          blogs.map(blog=> <BloggerCard key={blog.id} userInfo={userInfo} {...{follow}} {...blog} />)
         }
       </main>
     </div>

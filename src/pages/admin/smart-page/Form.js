@@ -22,14 +22,6 @@ function isPromise(obj) {
   return false;
 }
 
-// function compare(origin, target) {
-//   if (typeof target === 'object') {
-//     if (typeof origin !== 'object' || !origin) return false;
-//     if (Object.keys(origin).length !== Object.keys(target).length) return false;
-//     for (let key in target) if (!compare(origin[key], target[key])) return false;
-//     return true;
-//   } else { return origin === target; }// 属性值的对比结果
-// }
 function compare(origin, target) {
   if (typeof target === 'object' && typeof origin === 'object') {
     if(target === origin) {
@@ -126,7 +118,7 @@ export default class SmartForm extends BaseComponent {
       this.collectInteract(this.props.formItems);
       // 将所有的错误信息重置
       this.resetError();
-      this.setState({});
+      this.setState(DummyState);
     }
 
     resetError() {
@@ -195,12 +187,15 @@ export default class SmartForm extends BaseComponent {
 
     // 判断两次的props，如果有props发生变化，则要重新赋值给this.formItems
     componentWillReceiveProps(nextProps) {
+      console.log('props', nextProps, this.props);
       if (!compare(nextProps, this.props)) {
         this.formItems = nextProps.formItems.map(item=> {
           return Object.assign({}, item);
         });
         // 这里要重新收集item的值;
         this.recollectValue(nextProps.formItems);
+        console.log("this.nextprops", nextProps);
+        this.setState(DummyState);
       }
 
     }

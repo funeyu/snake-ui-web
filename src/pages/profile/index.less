@@ -1,25 +1,60 @@
-.nav {
+.profile {
+    display: flex;
     .aside {
-        width: 230px;
-        height: 100%;
+        width: 250px;
+        padding: 0 16px;
         position: fixed;
-        top: 0;
-        background-color: #f4f2f1;
-        color: #fff;
         text-align: center;
+        top: 0;
         border-right: 1px solid #f4f2f1;
         .logo {
-            cursor: pointer;
-            width: 120px;
+            text-align: center;
+            border-bottom: 1px solid #f4f2f1;
+            height: 45px;
+            img {
+                cursor: pointer;
+                width: 120px;
+                margin: -8px auto 8px auto;
+            }
         }
         .user {
-            text-align: center;
+            margin-top: 20px;
             img {
-                width: 40px;
+                width: 60px;
             }
             .name {
                 color: #333;
                 font-size: 16px;
+            }
+            .follow-title {
+                color: #2BCF61;
+            }
+            ul {
+                border-top: 1px solid #f4f2f1;
+                li {
+                    padding: 10px 6px;
+                    list-style: none;
+                    img {
+                        float: left;
+                        width: 40px;
+                        margin-right: 6px;
+                        border-radius: 4px;
+                    }
+                    .info {
+                        overflow: hidden;
+                        .login {
+
+                        }
+                        .bio {
+
+                        }
+                        .last-blog {
+                            a {
+                                color: #ccc;
+                            }
+                        }
+                    }
+                }
             }
         }
         .tip {
@@ -48,7 +83,11 @@
         }
     }
     .main {
-        margin: 20px 20px 0 240px;
+        margin-left: 250px;
+        padding-right: 10px;
+        min-height: 100vh;
+        background: #f4f2f1;
+        flex: auto;
         .selection {
             margin: 10px 0;
             font-size: 14px;
@@ -64,8 +103,27 @@
         .notgood {
             transform:rotate(180deg);
         }
-        .result {
+        .feeds {
             margin-left: 30px;
+            li {
+                list-style: none;
+                margin-top: 20px;
+                margin-right: 50px;
+                img {
+                    float: left;
+                    width: 40px;
+                }
+                .body {
+                    overflow: hidden;
+                    .content {
+                        overflow: hidden;
+                        padding: 10px;
+                        background: #fff;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+                }
+            }
         }
     }
 }

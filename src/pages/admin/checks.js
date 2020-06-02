@@ -5,12 +5,19 @@ import {fetch} from 'whatwg-fetch';
 import { MixedTable, Form } from './smart-page';
 
 const columns = ({update}) => [
-    {title: '博客地址', dataIndex: 'url', width: 600},
+    {title: '博客地址', dataIndex: 'url', width: 600, render:(text)=> <a href={text} target='_blank'>{text}</a>},
+    {title: '是否为博客', dataIndex: 'isBlog', render:(text)=>({0: '未审核', 1:'是', 2: '不是'}[text]) },
     {title: '新建时间', dataIndex: 'createdAt'},
-    {title: '操作', dataIndex: 'id', render: (text, record)=> [
-        <Button type='primary'  key='confirm' size='small' onClick={()=> update(record)}>确定</Button>, 
-        <Button type='primary' key='cancel' size='small' style={{marginLeft: '10px'}}>取消</Button>
-    ]}
+    {title: '操作', dataIndex: 'id', render: (text, record)=> {
+        if(record.isBlog === 0) {
+            return [
+                <Button type='primary'  key='confirm' size='small' onClick={()=> update(record)}>是博客</Button>, 
+                <Button type='primary' key='cancel' size='small' style={{marginLeft: '10px'}}>不是博客</Button>
+            ];
+        }
+        return <div />
+        }
+    }
 ];
 
 const formItems = [

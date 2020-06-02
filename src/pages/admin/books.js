@@ -9,7 +9,7 @@ const columns = ({update}) => [
     {title: '笔记数', dataIndex: 'notesNum'},
     {title: '购买地址', dataIndex: 'buyUrl', render: (text)=> text ? <a href={text}>{text}</a> : '暂无'},
     {title: '封面地址', dataIndex: 'picUrl', render: (text)=> text ? <img src={text} style={{width: '120px'}} alt='picUrl' /> : '暂无'},
-    {title: '操作', dataIndex: 'id', render: (text, record)=> <Button type='primary' onClick={()=> update(record)}>修改</Button>}
+    {title: '操作', dataIndex: 'id', render: (text, record)=> <Button type='primary' size='small' onClick={()=> update(record)}>修改</Button>}
 ];
 
 const formItems = [
@@ -82,7 +82,7 @@ export default ()=> {
             <AdminHeader active='books' />
             <Card title="书本列表" bordered={false}>
                 <Form formItems={formItems} ref={filterRef} />
-                <Button type='primary' style={{marginRight: '10px', float: 'right'}} onClick={search}>搜索</Button>
+                <Button type='primary' size="small" style={{marginRight: '10px', float: 'right'}} onClick={search}>搜索</Button>
                 <MixedTable ref={tableRef} request={list} pageNumField='pageNum' pageSizeField='pageSize' columns={columns({update})} />
             </Card>
         </div>

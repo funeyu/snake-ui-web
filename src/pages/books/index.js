@@ -4,7 +4,6 @@ import { Modal } from 'antd';
 import Pagination from '@material-ui/lab/Pagination';
 import {fetch} from 'whatwg-fetch';
 import Header from 'components/header';
-import Banner from 'images/soso.png';
 import Footer from 'components/footer';
 import './index.less';
 
@@ -58,10 +57,7 @@ export default ()=> {
     
     return(
         <div className='book'>
-            <Header active='books'/>
-            <div className='book-header'>
-                <img className='logo' src={Banner} alt='logo' onClick={goHome}/>
-            </div>
+            <Header active='books' showLogo/>
             <Footer />
             <main>
                 <ul>

@@ -11,7 +11,7 @@ const FormatUrl = function(record) {
 }
 const columns = ({del}) => [
     {title: '域名', dataIndex: 'domain', width: 600, render:(text, record)=> <a href={FormatUrl(record)} target='_blank'>{text}</a>},
-    {title: '速度(秒)', dataIndex: 'speed', render: (text)=> text / 1000},
+    {title: '排名信息', dataIndex: 'rankId', render: (text, record)=> <span>rankId:{record.rankId}; subRankId: {record.subRankId}</span>},
     {title: 'github followers数', dataIndex: 'gitFollowers'},
     {title: '操作', dataIndex: 'id', render: (text, record)=> <Button type='primary' size='small' onClick={()=> del(record)}>删除</Button>}
 ];

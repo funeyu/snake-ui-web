@@ -14,6 +14,7 @@ export default ({active})=> {
             <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/admin/blogs')}><b className='tri'></b>博客管理</span>
             <span className={active === 'checks' ? 'hot active' : 'hot'} onClick={()=> history.push('/admin/checks')}><b className='tri'></b>博客审核</span>
             <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/admin/books')}><b className='tri'></b>书籍管理</span>
+            <span className={active === 'users' ? 'hot active' : 'hot'} onClick={()=> history.push('/admin/users')}><b className='tri'></b>用户管理</span>
         </div>
     </div>
   </div>

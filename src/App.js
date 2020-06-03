@@ -11,6 +11,7 @@ import AdminBlogs from './pages/admin/blogs';
 import AdminChecks from './pages/admin/checks';
 import AdminBooks from './pages/admin/books';
 import AdminUsers from './pages/admin/users';
+import AdminYesterday from './pages/admin/ychecks';
 
 import UserContext from './contexts/user';
 
@@ -52,6 +53,9 @@ function App() {
       </Route>
       <Route path='/admin/users'>
         <AdminUsers />
+      </Route>
+      <Route path='/admin/yesterday'>
+        <AdminYesterday />
       </Route>
     </Router>
     </UserContext.Provider>

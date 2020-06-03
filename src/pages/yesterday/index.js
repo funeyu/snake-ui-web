@@ -28,14 +28,20 @@ export default ()=> {
             <Header active='yesterday' showLogo/>
             <Footer />
             <main>
-                <div className='title'>昨日新增博文：<b>{list.length}</b></div>
+                <div className='tags'>
+                    <span className='tag'>技术</span>
+                    <span className='tag selected'>编程语言</span>
+                    <span className='tag'>生活感悟</span>
+                    <span className='tag'>好文阅读</span>
+                    <span className='tag'>其他</span>
+                </div>
                 <ol>
                     {
                         list && list.length > 0 && list.map(l=> {
                             return (
                                 <li key={l.id}>
                                     <a href={l.url} target='_blank'>
-                                    <Img alt='avatar'id='profile-avatar' src={[l.favicon || "https://juejin.im/favicon.ico"]} 
+                                    <Img alt='avatar'id='profile-avatar' src={[l.favicon]} 
                                         unloader={<img alt='avatar' src={earth} id='profile-avatar'/>} 
                                     />
                                         <div className='info'>

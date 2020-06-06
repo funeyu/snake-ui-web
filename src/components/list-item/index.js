@@ -52,7 +52,7 @@ export default ({l, keywords, mode, operation})=> {
           l.favicon ? <Img className='avatar' alt='avatar' src={[l.favicon]} unloader={<img className='avatar' alt='avatar' src={earth} />}/>
             : <img className='avatar' alt='avatar' src={earth} />
         }
-        <div className='lang'>中文</div>
+        <div className='lang'>{{1: '中文', 2: '外文', 0: '中文'}[l.lang]}</div>
         <a className='link title' href={l.url} target='_blank'>
           {renderTitle(l.title, keywords)}
         </a>

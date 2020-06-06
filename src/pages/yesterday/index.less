@@ -11,7 +11,7 @@
             margin-bottom: 6px;
             .tag {
                 cursor: pointer;
-                font-size: 12px;
+                font-size: 13px;
                 font-weight: 600;
                 color: #999;
                 margin: 0 10px;
@@ -19,6 +19,13 @@
                 border-top-right-radius: 2px;
                 border-top-left-radius: 2px;
                 float: left;
+                .num {
+                    font-size: 12px;
+                    margin-left: 4px;
+                    padding: 0 2px;
+                    background-color: #f4f2f1;
+                    border-radius: 2px;
+                }
                 &:hover {
                     background-color: #f4f2f1;
                 }
@@ -26,6 +33,9 @@
             .selected {
                 color: #fff;
                 background-color: #2BCF61;
+                .num {
+                    background-color: #2BCF61;
+                }
                 &:hover {
                     background-color: #2BCF61;
                 }

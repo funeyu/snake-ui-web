@@ -6,11 +6,16 @@ import Header from 'components/header';
 import Footer from 'components/footer';
 import './index.less';
 
+const TypeMap = {
+    'all': -1, 'other': 0, 'tech': 1, 'language': 2, 'tool': 3, 'think': 4, 'goodreading': 5 
+};
 export default ()=> {
     const [list, setList] = useState([]);
+    const [info, updateInfo] = useState({});
+    const [type, updateType] = useState(TypeMap.all);
 
-    const searchApi = function() {
-        fetch(`/api/snake/blog/latest`)
+    const searchApi = function(type) {
+        fetch(`/api/snake/blog/latest?type=${type}`)
         .then((response)=> response.json())
         .then(function(res) {
             setList(res.data);
@@ -19,8 +24,22 @@ export default ()=> {
         });
     };
 
+    const searchTotal = function() {
+        fetch(`/api/snake/blog/latest/info`)
+            .then((response)=> response.json())
+            .then(res=> {
+                updateInfo(res.data);
+            });
+    };
+
+    const changeType = function(type) {
+        updateType(type);
+        searchApi(type);
+    };
+
     useEffect(()=> {
-        searchApi(1);
+        searchApi(TypeMap.all);
+        searchTotal();
     }, []);
     
     return(
@@ -29,11 +48,13 @@ export default ()=> {
             <Footer />
             <main>
                 <div className='tags'>
-                    <span className='tag'>技术</span>
-                    <span className='tag selected'>编程语言</span>
-                    <span className='tag'>生活感悟</span>
-                    <span className='tag'>好文阅读</span>
-                    <span className='tag'>其他</span>
+                    <span onClick={()=> changeType(TypeMap.all)} className={`${type===TypeMap.all ? 'tag selected': 'tag'}`}>全部<span className='num'>{info.total}</span></span>
+                    <span onClick={()=> changeType(TypeMap.tech)} className={`${type===TypeMap.tech ? 'tag selected': 'tag'}`}>技术<span className='num'>{info.tech}</span></span>
+                    <span onClick={()=> changeType(TypeMap.language)} className={`${type===TypeMap.language ? 'tag selected': 'tag'}`}>编程语言<span className='num'>{info.language}</span></span>
+                    <span onClick={()=> changeType(TypeMap.tool)} className={`${type===TypeMap.tool ? 'tag selected': 'tag'}`}>工具<span className='num'>{info.tool}</span></span>
+                    <span onClick={()=> changeType(TypeMap.think)} className={`${type===TypeMap.think ? 'tag selected': 'tag'}`}>生活感悟<span className='num'>{info.think}</span></span>
+                    <span onClick={()=> changeType(TypeMap.goodreading)} className={`${type===TypeMap.goodreading ? 'tag selected': 'tag'}`}>好文阅读<span className='num'>{info.goodreading}</span></span>
+                    <span onClick={()=> changeType(TypeMap.other)} className={`${type===TypeMap.other ? 'tag selected': 'tag'}`}>其他<span className='num'>{info.other}</span></span>
                 </div>
                 <ol>
                     {

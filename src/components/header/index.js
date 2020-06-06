@@ -13,6 +13,7 @@ export default ({active, showLogo})=> {
   const history = useHistory();
   const listenerRef = useRef();
   const [showProfile, updateShowProfile] = useState(false);
+  const info = useContext(UserContext);
 
   useEffect(()=> {
     return ()=> {
@@ -51,6 +52,13 @@ export default ({active, showLogo})=> {
   
 
   const record = function() {
+    // if(!info.logined) {
+    //   return Modal.confirm({
+    //     title: '抱歉没有登录，不能使用“收录博客”！',
+    //     okText: '去登录',cancelText: '不了',
+    //     onOk: ()=> window.location.href = '/api/snake/github/'
+    //   });
+    // }
     window.recordUrl = '';
     Modal.confirm({
       title: '请输入要填写的地址！',
@@ -83,8 +91,6 @@ export default ({active, showLogo})=> {
       }
     });
   }
-
-  const info = useContext(UserContext);
   return (
     <div className='header'>
       {

@@ -15,16 +15,20 @@ export default ()=> {
     const goHome = ()=> {
         history.push('/');
     };
-    const onDetail = ()=> {
+    const onDetail = (record)=> {
+        const list = [
+            {url: 'xxxx', title: '测试一把吧！'},
+            {url: 'xxxx', title: '测试一把吧！'},
+            {url: 'xxxx', title: '测试一把吧！'},
+            {url: 'xxxx', title: '测试一把吧！'}
+        ]
         Modal.info({
-            content: <span className='docs'>
-            <b>荐书： 中央帝国的财政密码</b>
-            <b>心流</b>
-            <b>荐书： 苏世明，我的经验与教训</b>
-            <b>荐书： 中央帝国的财政密码</b>
-            <b>荐书： 中央帝国的财政密码</b>
-            <b>荐书： 中央帝国的财政密码</b>
-            </span>
+            title: `《${record.name}》读书笔记详情`,
+            content: <div className='docs'>
+                {
+                    list.map((l, index)=> <div key={index}><a href={l.url}>{l.title}</a></div>)
+                }
+            </div>
         })
     }
 
@@ -67,7 +71,7 @@ export default ()=> {
                             <img alt='book_image_url' src={l.picUrl} />
                             <div className='right'>
                                 <p className='title'>《{l.name}》</p>
-                                <p>推荐理由：有{l.notesNum}位博主写过该书的读书笔记，点击<span className='detail' onClick={onDetail}>查看详情</span></p>
+                                <p>推荐理由：有{l.notesNum}位博主写过该书的读书笔记，点击<span className='detail' onClick={()=> onDetail(l)}>查看详情</span></p>
                                 <p><a href={l.buyUrl} className='buy' target='_blank'>购买</a></p>
                             </div>
                         </li>

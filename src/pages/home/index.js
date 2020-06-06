@@ -11,6 +11,7 @@ export default ()=> {
             <Header />
             <div className='banner'><img src={Banner} alt='logo' /></div>
             <Search />
+            <div className='note'>发现<b>有趣</b>的思想</div>
             <div className='note'>一个纯粹的<b>个人博客</b>搜索引擎</div>
             <Footer />
         </div>

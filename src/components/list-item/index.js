@@ -32,10 +32,9 @@ export default ({l, keywords, mode, operation})=> {
   const info = useContext(UserContext);
 
   const operationWrap = function(keyword, record, type) {
-    console.log('info', info);
-    if(!info || !info.islogined) {
+    if(!info || !info.logined) {
       Modal.confirm({
-        title: '抱歉没有登录，不能使用“收藏功能”！',
+        title: `抱歉没有登录，不能使用${type === 3 ? '“收藏功能”' : '点赞或踩功能'}！`,
         okText: '去登录',cancelText: '不了',
         onOk: ()=> window.location.href = '/api/snake/github/'
       });
@@ -43,6 +42,25 @@ export default ({l, keywords, mode, operation})=> {
     }
     
     operation(keyword, record, type);
+  }
+
+  const renderOp = function(record) {
+    return (
+      <span>
+        {
+          record.isCollected ? <span className='collect' onClick={()=> operationWrap(queryObj.keyword, l, 3)}>收藏</span> :
+          <span className='gray'>已收藏</span>
+        }
+        <span>
+          <span className='plus' onClick={()=> operationWrap(queryObj.keyword, l, 1)}>+</span>
+          <button className='star-button'>
+            <svg className="octicon" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fillRule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
+            <span>{l.star}</span>
+          </button>
+          <span className='minus' onClick={()=> operationWrap(queryObj.keyword, l, 2)}>-</span>
+        </span>
+      </span>
+    )
   }
 
   return (
@@ -61,19 +79,7 @@ export default ({l, keywords, mode, operation})=> {
       <div className='description'>{l.description}</div>
       <a className='link no-decoration' href={l.url} target='_blank'>{l.url}</a>
       {
-        mode === 'search' && (
-          <span>
-            <span className='collect' onClick={()=> operationWrap(queryObj.keyword, l, 3)}>收藏</span>
-            <span>
-              <span className='plus' onClick={()=> operationWrap(queryObj.keyword, l, 1)}>+</span>
-              <button className='star-button'>
-                <svg className="octicon" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fillRule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
-                <span>{l.star}</span>
-              </button>
-              <span className='minus' onClick={()=> operationWrap(queryObj.keyword, l, 2)}>-</span>
-            </span>
-          </span>
-        )
+        mode === 'search' && renderOp(l)
       }
       
     </li>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import {fetch} from 'whatwg-fetch';
+import { message } from 'antd';
 import query from 'utils/query';
 import ga from 'utils/ga';
 import ListItem from 'components/list-item';
@@ -102,14 +103,16 @@ export default ()=> {
     }
     
     const operation = function(word, doc, type) {
+      const hostname = new URL(doc.url).hostname;
       fetch('/api/snake/search/op/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          docId: doc.id,
-          word,type 
+          type, info: {
+            docId: doc.id, domain: hostname, word,
+          }
         })
       }).then(res=>res.json()).then(data=> {
         if(data.success) {
@@ -127,9 +130,9 @@ export default ()=> {
               };
             });
           }
-          alert('操作成功！');
+          message.info('操作成功！');
         } else {
-          alert('操作失败:' + data.msg);
+          message.error('操作失败:' + data.msg);
         }
       });
     };
@@ -148,14 +151,6 @@ export default ()=> {
           {
             list.data && list.data.length > 0 && <div className='abstract'>
               共搜索到<b>{list.total}</b>条数据
-              <span className='sort iconfont icon-sorting' onClick={setShowSort}>
-                <b id='sort'>{sort === 1 ? '默认排序' : '时间倒序' }</b>
-                <span className='selection' style={{display: showSort ? 'block' : 'none'}}>
-                  <b className='tri'></b>
-                  <b className='order' onClick={()=> onSort(1)}>默认排序</b>
-                  <b className='order' onClick={()=> onSort(2)}>时间倒序</b>
-                </span>
-              </span>
             </div>
           }
           <ul className='result'>

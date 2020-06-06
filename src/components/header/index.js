@@ -100,7 +100,7 @@ export default ({active, showLogo})=> {
       }
       <div className='container'>
         <div className='links'>
-            <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/yesterday')}><b className='tri'></b>昨新增博文<b className='num'></b></span>
+            <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/yesterday')}><b className='tri'></b>昨日博文<b className='num'></b></span>
             <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博主</span>
             <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
             <span onClick={record}>收录博客</span>

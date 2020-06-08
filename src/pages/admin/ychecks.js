@@ -10,7 +10,7 @@ const columns = ({update, del}) => [
     {title: '博文title', dataIndex: 'title', width: 500},
     {title: '博文类型', dataIndex: 'type',
         render: (text, record)=> (
-            <Select style={{width: 120}} value={text} options={[{name: '其他', value: 0}, {name: '技术', value: 1}, {name: '编程语言', value: 2}, {name: '工具', value: 3}, {name: '生活感悟', value: 4}, {name: '好文阅读', value: 5}]} 
+            <Select style={{width: 120}} value={text} options={[{name: '其他', value: 0}, {name: '技术', value: 1}, {name: '编程语言', value: 2}, {name: '工具', value: 3}, {name: '生活感悟', value: 4}, {name: '好文阅读', value: 5}, {name: '图集', value: 6}]} 
             onChange={(value)=> {update(record.id, value)}}
             />
         )
@@ -24,7 +24,7 @@ const columns = ({update, del}) => [
 ];
 
 const formItems = [
-    {name: '博文类型', key: 'type', type: Select, options: [{name: '其他', value: 0}, {name: '技术', value: 1}, {name: '编程语言', value: 2}, {name: '工具', value: 3}, {name: '生活感悟', value: 4}, {name: '好文阅读', value: 5}]}
+    {name: '博文类型', key: 'type', type: Select, options: [{name: '其他', value: 0}, {name: '技术', value: 1}, {name: '编程语言', value: 2}, {name: '工具', value: 3}, {name: '生活感悟', value: 4}, {name: '好文阅读', value: 5}, {name: '图集', value: 6}]}
 ];
 
 const addItems = [

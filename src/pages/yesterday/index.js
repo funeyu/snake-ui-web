@@ -8,11 +8,11 @@ import Footer from 'components/footer';
 import './index.less';
 
 const TypeMap = {
-    'all': -1, 'other': 0, 'tech': 1, 'language': 2, 'tool': 3, 'think': 4, 'goodreading': 5 
+    'all': -1, 'other': 0, 'tech': 1, 'language': 2, 'tool': 3, 'think': 4, 'goodreading': 5, 'pics': 6, 
 };
 
 const MapType = {
-    '-1': 'all', '0': 'other', '1': 'tech', '2': 'language', '3': 'tool', '4': 'think', '5': 'goodreading'
+    '-1': 'all', '0': 'other', '1': 'tech', '2': 'language', '3': 'tool', '4': 'think', '5': 'goodreading', '6': 'pics'
 };
 
 export default ()=> {
@@ -61,6 +61,7 @@ export default ()=> {
                     <span onClick={()=> changeType(TypeMap.tool)} className={`${type===TypeMap.tool ? 'tag selected': 'tag'}`}>工具<span className='num'>{info.tool}</span></span>
                     <span onClick={()=> changeType(TypeMap.think)} className={`${type===TypeMap.think ? 'tag selected': 'tag'}`}>生活感悟<span className='num'>{info.think}</span></span>
                     <span onClick={()=> changeType(TypeMap.goodreading)} className={`${type===TypeMap.goodreading ? 'tag selected': 'tag'}`}>好文阅读<span className='num'>{info.goodreading}</span></span>
+                    <span onClick={()=> changeType(TypeMap.pics)} className={`${type===TypeMap.pics ? 'tag selected': 'tag'}`}>图集<span className='num'>{info.pics}</span></span>
                     <span onClick={()=> changeType(TypeMap.other)} className={`${type===TypeMap.other ? 'tag selected': 'tag'}`}>其他<span className='num'>{info.other}</span></span>
                 </div>
                 <ol>

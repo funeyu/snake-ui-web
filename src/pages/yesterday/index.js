@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {fetch} from 'whatwg-fetch';
 import Img from 'react-image';
+import { traceEvent } from 'utils/ga';
 import earth from 'images/earth.png';
 import Header from 'components/header';
 import Footer from 'components/footer';
@@ -9,6 +10,11 @@ import './index.less';
 const TypeMap = {
     'all': -1, 'other': 0, 'tech': 1, 'language': 2, 'tool': 3, 'think': 4, 'goodreading': 5 
 };
+
+const MapType = {
+    '-1': 'all', '0': 'other', '1': 'tech', '2': 'language', '3': 'tool', '4': 'think', '5': 'goodreading'
+};
+
 export default ()=> {
     const [list, setList] = useState([]);
     const [info, updateInfo] = useState({});
@@ -33,6 +39,7 @@ export default ()=> {
     };
 
     const changeType = function(type) {
+        traceEvent('yesterday', 'tab', MapType[type]);
         updateType(type);
         searchApi(type);
     };

@@ -3,7 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import {fetch} from 'whatwg-fetch';
 import { message } from 'antd';
 import query from 'utils/query';
-import ga from 'utils/ga';
+import { traceEvent } from 'utils/ga';
 import ListItem from 'components/list-item';
 import Pagination from '@material-ui/lab/Pagination';
 import Header from 'components/header';
@@ -53,7 +53,7 @@ export default ()=> {
     }
 
     useEffect(()=> {
-      ga('search', 'click', queryObj.keyword);
+      traceEvent('search', 'click', queryObj.keyword);
       searchApi(queryObj.keyword, sort);
       return ()=> {
         document.addEventListener('click', listenerRef.current, false);
@@ -79,7 +79,7 @@ export default ()=> {
     }
 
     const changePage = (event, page)=> {
-      ga('search', 'changepage', `${page}`);
+      traceEvent('search', 'changepage', `${page}`);
       updateLoading(true);
       fetch(`/api/snake/search/?word=${queryObj.keyword}&page=${page}&sort=${sort}`)
         .then((response)=> response.json())

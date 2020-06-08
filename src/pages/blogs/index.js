@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
 import { message } from 'antd';
+import { traceEvent } from 'utils/ga';
 import Header from 'components/header';
 import UserContext from 'contexts/user';
 import BloggerCard from 'components/blogger-card';
@@ -29,6 +30,7 @@ export default ()=> {
   // where 包含 {lang, type} 
   // lang: 1为国内，2为国外； type: 1为热门博客主，2为多产博客主；
   const changeWhere = function(w) {
+    traceEvent('blogs', 'change', {1: '国内', 2: '国外'}[w.lang]);
     updateWhere(where=> {
       console.log(where, w);
       if (where.lang !== w.lang) {
@@ -52,6 +54,7 @@ export default ()=> {
   }, [where]);
 
   const follow = useCallback((domain)=> {
+    traceEvent('blogs', 'follow', domain);
     fetch(`/api/snake/search/op/`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},

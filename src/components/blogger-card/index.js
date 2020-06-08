@@ -17,7 +17,7 @@ export default ({favicon, title, url, domain, description, isCollected, userInfo
         if (!userInfo || !userInfo.logined) {
             return <span className='follow' onClick={alertNologin}>收藏</span>
         } else if(isCollected) {
-            return <span className='follow followed'>已经收藏</span>
+            return <span className='follow followed'>已收藏</span>
         } else {
             return <span className='follow' onClick={()=>follow(domain)}>收藏</span>
         }

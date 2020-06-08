@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Modal } from 'antd';
 import Pagination from '@material-ui/lab/Pagination';
 import {fetch} from 'whatwg-fetch';
+import { traceEvent } from 'utils/ga';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import './index.less';
@@ -16,20 +17,23 @@ export default ()=> {
         history.push('/');
     };
     const onDetail = (record)=> {
-        const list = [
-            {url: 'xxxx', title: '测试一把吧！'},
-            {url: 'xxxx', title: '测试一把吧！'},
-            {url: 'xxxx', title: '测试一把吧！'},
-            {url: 'xxxx', title: '测试一把吧！'}
-        ]
-        Modal.info({
-            title: `《${record.name}》读书笔记详情`,
-            content: <div className='docs'>
-                {
-                    list.map((l, index)=> <div key={index}><a href={l.url}>{l.title}</a></div>)
-                }
-            </div>
-        })
+        traceEvent('book', 'detail', record.name);
+        fetch('/api/snake/book/notes', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({bookId: record.id})
+        }).then(res=> res.json())
+        .then(data=> {
+            const list = data.data;
+            Modal.info({
+                title: `《${record.name}》读书笔记详情`, okText: '知道了', width: 600,
+                content: <div className='docs' style={{maxHeight: '300px', overflowY: 'scroll'}}>
+                    {
+                        list.map((l, index)=> <div key={index}><a href={l.url} target='_blank'>{l.title}</a></div>)
+                    }
+                </div>
+            })
+        });
     }
 
     const searchApi = function(pageNum) {
@@ -68,11 +72,13 @@ export default ()=> {
                     {
                         list.data && list.data.length > 0 && list.data.map(l=> {
                             return <li key={l.id}>
-                            <img alt='book_image_url' src={l.picUrl} />
+                            <img alt='book_image_url' className={`${l.buyUrl ? '' : 'small'}`} src={l.picUrl} />
                             <div className='right'>
                                 <p className='title'>《{l.name}》</p>
-                                <p>推荐理由：有{l.notesNum}位博主写过该书的读书笔记，点击<span className='detail' onClick={()=> onDetail(l)}>查看详情</span></p>
-                                <p><a href={l.buyUrl} className='buy' target='_blank'>购买</a></p>
+                                <p>推荐理由：有{l.notesNum}篇关于此的的读书笔记或其他，点击<span className='detail' onClick={()=> onDetail(l)}>查看详情</span></p>
+                                {
+                                    l.buyUrl && <p><a href={l.buyUrl} className='buy' target='_blank'>购买</a></p>
+                                }
                             </div>
                         </li>
                         })

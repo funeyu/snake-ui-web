@@ -4,12 +4,17 @@ import AdminHeader from 'components/admin-header';
 import {fetch} from 'whatwg-fetch';
 import { MixedTable, Form } from './smart-page';
 
-const columns = ({update}) => [
+const columns = ({update, del}) => [
     {title: '书名', dataIndex: 'name', width: 600},
     {title: '笔记数', dataIndex: 'notesNum'},
     {title: '购买地址', dataIndex: 'buyUrl', render: (text)=> text ? <a href={text}>{text}</a> : '暂无'},
     {title: '封面地址', dataIndex: 'picUrl', render: (text)=> text ? <img src={text} style={{width: '120px'}} alt='picUrl' /> : '暂无'},
-    {title: '操作', dataIndex: 'id', render: (text, record)=> <Button type='primary' size='small' onClick={()=> update(record)}>修改</Button>}
+    {title: '操作', dataIndex: 'id', render: (text, record)=> {
+       return [
+        <Button key='update' type='primary' size='small' onClick={()=> update(record)}>修改</Button>,
+        <Button key='del' type='primary' size='small' style={{marginLeft: '4px'}} onClick={()=> del(record)}>删除</Button>
+       ]}
+    }
 ];
 
 const formItems = [
@@ -68,7 +73,6 @@ export default ()=> {
                             if(code !== 10000) {
                                 Modal.error({title: msg});
                             } else {
-                                Modal.info({title: '修改成功!'});
                                 tableRef.current.Refresh();
                             }
                         })
@@ -77,13 +81,29 @@ export default ()=> {
             });
     }
 
+    const del = function(record) {
+        fetch(`/api/admin/book/delete`, {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: record.id})
+        }).then(res=> res.json())
+        .then(json=> {
+            const { code, msg } = json;
+            if(code !== 10000) {
+                Modal.error({title: msg});
+            } else {
+                tableRef.current.Refresh();
+            }
+        })
+    }
+
     return (
         <div>
             <AdminHeader active='books' />
             <Card title="书本列表" bordered={false}>
                 <Form formItems={formItems} ref={filterRef} />
-                <Button type='primary' size="small" style={{marginRight: '10px', float: 'right'}} onClick={search}>搜索</Button>
-                <MixedTable ref={tableRef} request={list} pageNumField='pageNum' pageSizeField='pageSize' columns={columns({update})} />
+                <Button type='primary' size="small" style={{marginLeft: '500px'}} onClick={search}>搜索</Button>
+                <MixedTable ref={tableRef} request={list} pageNumField='pageNum' pageSizeField='pageSize' columns={columns({update, del})} />
             </Card>
         </div>
     );

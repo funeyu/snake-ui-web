@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { Modal, Input } from 'antd';
 import Img from 'react-image';
 import { fetch } from 'whatwg-fetch';
-import { check } from 'utils/api.js';
-import UserContext from 'contexts/user.js';
+import { check } from 'utils/api';
+import { traceEvent } from 'utils/ga';
+import UserContext from 'contexts/user';
 import earth from 'images/earth.png';
 import logo from 'images/soso.png';
 import './index.less';
@@ -91,6 +92,12 @@ export default ({active, showLogo})=> {
       }
     });
   }
+
+  const login = function(url) {
+    traceEvent('header', 'login', '');
+    window.open(url);
+  }
+
   return (
     <div className='header'>
       {
@@ -101,14 +108,14 @@ export default ({active, showLogo})=> {
       <div className='container'>
         <div className='links'>
             <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/yesterday')}><b className='tri'></b>昨日博文<b className='num'></b></span>
-            <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博主</span>
+            <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博客</span>
             <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
             <span onClick={record}>收录博客</span>
             <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
         </div>
         <div className='user'>
         {
-          !info.logined ? <a className='login' href='/api/snake/github/'>登录</a>
+          !info.logined ? <span className='login' href='' onClick={()=>login('/api/snake/github/') }>登录</span>
             : <div className='avatar'>
             <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
               unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 

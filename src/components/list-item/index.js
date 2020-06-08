@@ -48,8 +48,8 @@ export default ({l, keywords, mode, operation})=> {
     return (
       <span>
         {
-          record.isCollected ? <span className='collect' onClick={()=> operationWrap(queryObj.keyword, l, 3)}>收藏</span> :
-          <span className='gray'>已收藏</span>
+          record.isCollected ? <span className='gray'>已收藏</span> :
+            <span className='collect' onClick={()=> operationWrap(queryObj.keyword, l, 3)}>收藏</span>
         }
         <span>
           <span className='plus' onClick={()=> operationWrap(queryObj.keyword, l, 1)}>+</span>

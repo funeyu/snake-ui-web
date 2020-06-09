@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {fetch} from 'whatwg-fetch';
 import Img from 'react-image';
 import { traceEvent } from 'utils/ga';
+import Pagination from '@material-ui/lab/Pagination';
 import earth from 'images/earth.png';
 import Header from 'components/header';
 import Footer from 'components/footer';
@@ -16,13 +17,28 @@ const MapType = {
 };
 
 export default ()=> {
-    const [list, setList] = useState([]);
+    const [list, setList] = useState({});
     const [info, updateInfo] = useState({});
     const [type, updateType] = useState(TypeMap.all);
+    const [value, setValue] = useState('');
+    const [page, setPage] = useState(1);
 
-    const searchApi = function(type) {
-        fetch(`/api/snake/blog/latest?type=${type}`)
-        .then((response)=> response.json())
+    const searchApi = function(query, isTitle) {
+        let f
+        if (isTitle) {
+            f = fetch(`/api/snake/blog/search/latest`, {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(query)
+            });
+        } else {
+            f = fetch(`/api/snake/blog/latest`, {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(query)
+            });
+        }
+        f.then((response)=> response.json())
         .then(function(res) {
             setList(res.data);
         }).catch(function(ex) {
@@ -38,17 +54,33 @@ export default ()=> {
             });
     };
 
+    const changePage = function(event, pageNum) {
+        console.log('page', pageNum);
+        setPage(pageNum);
+        searchApi({type, pageNum});
+    };
+
     const changeType = function(type) {
         traceEvent('yesterday', 'tab', MapType[type]);
         updateType(type);
-        searchApi(type);
+        setPage(1);
+        searchApi({type, pageNum: 1});
     };
 
     useEffect(()=> {
-        searchApi(TypeMap.all);
+        searchApi({type: TypeMap.all, pageNum: 1});
         searchTotal();
     }, []);
     
+    const onChange = function(event) {
+        setValue(event.target.value);
+    };
+
+    const onSubmit = function() {
+        setPage(1);
+        searchApi({title:value, pageNum: 1}, true);
+    };
+
     return(
         <div className='y'>
             <Header active='yesterday' showLogo/>
@@ -64,9 +96,17 @@ export default ()=> {
                     <span onClick={()=> changeType(TypeMap.pics)} className={`${type===TypeMap.pics ? 'tag selected': 'tag'}`}>图集<span className='num'>{info.pics}</span></span>
                     <span onClick={()=> changeType(TypeMap.other)} className={`${type===TypeMap.other ? 'tag selected': 'tag'}`}>其他<span className='num'>{info.other}</span></span>
                 </div>
+                {
+                    type === TypeMap.all && <div className='search'>
+                        <span className='area'>
+                        <input className='input' placeholder='' value={value} onChange={onChange} />
+                        <input className='button' type='submit' value='搜一下' onClick={onSubmit} />
+                        </span>
+                    </div>
+                }
                 <ol>
                     {
-                        list && list.length > 0 && list.map(l=> {
+                        list && list.total > 0 && list.items.map(l=> {
                             return (
                                 <li key={l.id}>
                                     <a href={l.url} target='_blank'>
@@ -83,6 +123,11 @@ export default ()=> {
                         })
                     }
                 </ol>
+                {
+                list.total > 0 && <Pagination count={Math.ceil(list.total/20)} page={page} shape='rounded' size='small' boundaryCount={3}
+                    onChange={changePage}
+                    />
+                }
             </main>
         </div>
     );

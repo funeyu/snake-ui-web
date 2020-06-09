@@ -143,6 +143,12 @@ module.exports = function(webpackEnv) {
 
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+    externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'antd': 'antd',
+      'moment': 'moment'
+    },
     // Stop compilation early in production
     bail: isEnvProduction,
     devtool: isEnvProduction

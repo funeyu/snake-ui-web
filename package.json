@@ -77,7 +77,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "stats": "node scripts/build.js \"--stats\" webpack-bundle-analyzer build/bundle-stats.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -96,7 +97,8 @@
   },
   "devDependencies": {
     "less": "^2.7.3",
-    "less-loader": "^6.0.0"
+    "less-loader": "^6.0.0",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "jest": {
     "roots": [

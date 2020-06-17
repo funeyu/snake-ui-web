@@ -27,7 +27,7 @@ function App() {
   return (
     <UserContext.Provider value={userInfo}>
       <Router>
-        <Suspense fallback={'加载中......'}>
+        <Suspense fallback={<div style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>加载中......</div>}>
         <GaListener>
           <Route path='/' exact>
             <Home />

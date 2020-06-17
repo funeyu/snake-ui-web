@@ -8,6 +8,7 @@ import { traceEvent } from 'utils/ga';
 import UserContext from 'contexts/user';
 import earth from 'images/earth.png';
 import logo from 'images/soso.png';
+import sup from 'images/support.jpeg';
 import './index.less';
 
 export default ({active, showLogo})=> {
@@ -98,6 +99,14 @@ export default ({active, showLogo})=> {
     window.open(url);
   }
 
+  const support = function() {
+    Modal.info({
+      title: '维护不易，希望能多多支持下',
+      width: 400, okText: '关闭',
+      content: <img style={{width: '250px'}} src={sup} />
+    })
+  }
+
   return (
     <div className='header'>
       {
@@ -112,6 +121,7 @@ export default ({active, showLogo})=> {
             <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
             <span onClick={record}>收录博客</span>
             <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
+            <span onClick={support}>支持一下</span>
         </div>
         <div className='user'>
         {

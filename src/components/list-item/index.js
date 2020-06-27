@@ -13,7 +13,7 @@ TimeAgo.addLocale(zh);
 const timeAgo = new TimeAgo('zh');
 
 // mode: 分为搜索列表模式(search) 和 收藏点赞个人列表(profile)
-export default ({l, keywords, mode, operation})=> {
+export default ({l, keywords, mode, onClick, operation, activeId})=> {
   const queryObj = query(useLocation());
 
   const renderTitle = function(title, keywords) {
@@ -62,25 +62,26 @@ export default ({l, keywords, mode, operation})=> {
       </span>
     )
   }
+  
+  const clickItem = function(item) {
+    console.log('clickItema');
+    onClick && onClick(item);
+  }
 
   return (
-    <li className='' key={l.id} className={l.isTop5 && mode === 'search' ? 'top5 list-item' : 'list-item'}>
+    <li className='' key={l.id} className={l.id ===activeId && mode === 'search' ? 'top5 list-item' : 'list-item'} onClick={()=> clickItem(l)}>
       <div className='title'>
         {
           l.favicon ? <Img className='avatar' alt='avatar' src={[l.favicon]} unloader={<img className='avatar' alt='avatar' src={earth} />}/>
             : <img className='avatar' alt='avatar' src={earth} />
         }
-        <a className='link title' href={l.url} target='_blank'>
+        <div className='link title' href={l.url} target='_blank'>
           {renderTitle(l.title, keywords)}
-        </a>
+        </div>
       </div>
       <div className='timeAgo'>创建于:{l.timeStamp ? timeAgo.format(l.timeStamp * 1000) : '暂无'}</div>
       <div className='description'>{l.description}</div>
       <a className='link no-decoration' href={l.url} target='_blank'>{l.url}</a>
-      {
-        mode === 'search' && renderOp(l)
-      }
-      
     </li>
   )
 }

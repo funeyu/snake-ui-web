@@ -7,10 +7,8 @@ import { traceEvent } from 'utils/ga';
 import ListItem from 'components/list-item';
 import Pagination from '@material-ui/lab/Pagination';
 import Header from 'components/header';
-import Banner from 'images/soso.png';
-import Search from 'components/search';
+import Preview from 'components/preview';
 import Nothing from 'components/nothing';
-import Footer from 'components/footer';
 import './index.less';
 
 export default ()=> {
@@ -20,7 +18,9 @@ export default ()=> {
     const [activePage, setActivePage] = useState(1);
     const [sort, setSort] = useState(1); // 1代表默认排序，2代表按照时间倒序
     const [showSort, updateShowSort] = useState(false);
+    const [activeId, updateActive] = useState();
     const [loading, updateLoading] = useState(false);
+    const [detail, updateDetail] = useState('');
     const listenerRef = useRef();
 
     const goHome = ()=> {
@@ -57,7 +57,7 @@ export default ()=> {
       searchApi(queryObj.keyword, sort);
       return ()=> {
         document.addEventListener('click', listenerRef.current, false);
-      }
+      };
     }, [queryObj.timestamp, queryObj.keyword, sort]);
 
     const searchApi = function(keyword, sort) {    
@@ -76,7 +76,7 @@ export default ()=> {
         }).finally(()=> {
           updateLoading(false);
         });
-    }
+    };
 
     const changePage = (event, page)=> {
       traceEvent('search', 'changepage', `${page}`);
@@ -99,7 +99,7 @@ export default ()=> {
 
     const onSort = (x)=> {
       setSort(x);
-      searchApi(queryObj.keyword, x)
+      searchApi(queryObj.keyword, x);
     }
     
     const operation = function(word, doc, type) {
@@ -137,34 +137,40 @@ export default ()=> {
       });
     };
 
+    const changeItem = function(i) {
+      updateDetail(i.url);
+      updateActive(i.id);
+    };
+
     return (
       <div className='search-page'>
         <Header />
-        <div className='search-header'>
-            <img className='logo' src={Banner} alt='logo' onClick={goHome}/>
-            <Search {...queryObj}/>
-        </div>
-        <div className='result-list'>
-          {
-            !loading && !list.data || list.data.length === 0 && <Nothing word={queryObj.keyword} />
-          }
-          {
-            list.data && list.data.length > 0 && <div className='abstract'>
-              共搜索到<b>{list.total}</b>条数据
+        <main>
+          <div className='aside-list'>
+            <div className='result-list'>
+              {
+                !loading && !list.data || list.data.length === 0 && <Nothing word={queryObj.keyword} />
+              }
+              {
+                list.data && list.data.length > 0 && <div className='abstract'>
+                  搜索到<b>{list.total}</b>条数据
+                  {
+                      list.total > 0 && <Pagination style={{float: 'right'}} count={Math.ceil(list.total/10)} page={activePage} shape='rounded' size='small' boundaryCount={2}
+                        onChange={changePage}
+                      />
+                  }
+                </div>
+              }
+              <ul className='result'>
+                {
+                  list.data && list.data.map((l,index)=> <ListItem mode='search' l={l} keywords={list.keywords} operation={operation} onClick={()=> changeItem(l)} activeId={activeId} />)
+                }
+              </ul>
             </div>
-          }
-          <ul className='result'>
-            {
-              list.data && list.data.map((l,index)=> <ListItem mode='search' l={l} keywords={list.keywords} operation={operation} />)
-            }
-          </ul>
-          {
-            list.total > 0 && <Pagination count={Math.ceil(list.total/10)} page={activePage} shape='rounded' size='small' boundaryCount={3}
-                onChange={changePage}
-              />
-          }
-        </div>
-        <Footer />
+          </div>
+
+          <Preview detail={detail}/>
+        </main>
       </div>
     )
 }

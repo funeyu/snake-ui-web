@@ -1,16 +1,10 @@
 import React from 'react';
 import Img from 'react-image';
-import { Modal } from 'antd';
 import earth from 'images/earth.png';
 import './index.less'
 
 export default ({favicon, title, url, domain, description, isCollected, userInfo, follow})=> {
     const alertNologin = ()=> {
-        Modal.confirm({
-            title: '抱歉没有登录，不能使用“收藏功能”！',
-            okText: '去登录',cancelText: '不了',
-            onOk: ()=> window.location.href = '/api/snake/github/'
-        });
     };
 
     const renderBtn = function(isCollected, userInfo, domain) {

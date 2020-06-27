@@ -11,15 +11,8 @@ import './App.less';
 const Home = lazy(()=> import('./pages/home'));
 const Search = lazy(()=> import('./pages/search'));
 const Yesterday = lazy(()=> import('./pages/yesterday'));
-const Books = lazy(()=> import('./pages/books'));
 const Blogs = lazy(()=> import('./pages/blogs'));
 const Profile = lazy(()=> import('./pages/profile'));
-
-const AdminBlogs = lazy(()=> import('./pages/admin/blogs'));
-const AdminChecks = lazy(()=> import('./pages/admin/checks'));
-const AdminBooks = lazy(()=> import('./pages/admin/books'));
-const AdminUsers = lazy(()=> import('./pages/admin/users'));
-const AdminYesterday = lazy(()=> import('./pages/admin/ychecks'));
 
 function App() {
   const userInfo = UserInfoHook();
@@ -41,26 +34,8 @@ function App() {
           <Route path='/blogs'>
             <Blogs />
           </Route>
-          <Route path='/books'>
-            <Books />
-          </Route>
           <Route path='/profile'>
             <Profile />
-          </Route>
-          <Route path='/admin/blogs'>
-            <AdminBlogs />
-          </Route>
-          <Route path='/admin/checks'>
-            <AdminChecks />
-          </Route>
-          <Route path='/admin/books'>
-            <AdminBooks />
-          </Route>
-          <Route path='/admin/users'>
-            <AdminUsers />
-          </Route>
-          <Route path='/admin/yesterday'>
-            <AdminYesterday />
           </Route>
           </GaListener>
         </Suspense>

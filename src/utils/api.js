@@ -20,4 +20,27 @@ const check = function(url) {
     });
 };
 
-export { check };
+const postForm = function(url, formData) {
+    return fetch(url, {
+        method: 'POST',
+        // headers: {'Content-Type': 'multipart/form-data;' },
+        body: formData
+    }).then((response)=> response.json())
+    .catch(function(ex) {
+        console.log('parsing failed', ex);
+    });
+};
+
+const postJson = function(url, json) {
+    return fetch(url, {
+        method: 'POST',  
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then((response)=> response.json())
+    .catch(function(ex) {
+        console.log('parsing failed', ex);
+    });
+};
+
+export { check, postForm, postJson };

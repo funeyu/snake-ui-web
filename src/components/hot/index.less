@@ -1,0 +1,31 @@
+.hot-area {
+    width: 1200px;
+    margin: 20px auto 0 auto;
+    border-radius: 4px;
+    margin-bottom: 60px;
+    .tags {
+        text-align: center;
+        overflow: hidden;
+        margin: 0 0 -2px 0;
+        li {
+            display: inline-block;
+            padding: 0 20px;
+            font-size: 14px;
+            position: relative;
+            cursor: pointer;
+            &:hover {
+                font-weight: 600;
+            }
+        }
+        .active {
+            border-bottom: 2px solid #2BCF61;
+            font-weight: 600;
+        }
+
+    }
+    .content {
+        border-top: 2px solid #ddd;
+        background: #eee;
+        min-height: 500px;
+    }
+}

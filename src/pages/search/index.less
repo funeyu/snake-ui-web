@@ -17,88 +17,30 @@
             }
         }
     }
-    .search-header {
-        position: absolute;
-        left: 0;
-        top: 7px;
-        .logo {
-            cursor: pointer;
-            width: 120px;
-            position: absolute;
-            left: 40px;
-            top: -16px;
-        }
-        .area {
-            margin-left: 160px;
+    main {
+        display: flex;
+        box-sizing: border-box;
+        height: calc(100vh - 100px);
+        .aside-list {
             width: 600px;
-        }
-        @media (max-width: 480px) {
-            .logo {
-                width: 100px;
-                left: 10px;
-                top: -10px;
-            }
-            .area {
-                margin-left: 110px;
-                width: 70%;
-            }
         }
     }
     .result-list {
-        margin-left: 160px;
         width: 600px;
-        margin-bottom: 100px;
+        border-right: 1px solid #eceef1;
+        .result-wrap {
+
+        }
         .result {
-            margin-bottom: 20px;
+            height: calc(100vh - 100px);
+            overflow-y: overlay;
+            padding-left: 60px;
         }
         .abstract {
-            background: #f4f2f1;
-            width: 602px;
-            font-size: 13px;
-            box-sizing: border-box;
-            padding: 8px 10px;
-            margin-top: 4px;
-            border-left: 2px solid #ccc;
-            .sort {
-                float: right;
-                position: relative;
-                cursor: pointer;
-                b {
-                    display: inline-block;
-                    font-size: 12px;
-                }
-                .selection {
-                    display: none;
-                    z-index: 9;
-                    box-shadow: 2px 2px 2px rgba(170,170,170,0.5);
-                    font-size: 12px;
-                    color: #999;
-                    box-sizing: border-box;
-                    position: absolute;
-                    right: 0;
-                    bottom: -50px;
-                    height: 34px;
-                    width: 70px;
-                    background-color: #f4f2f1;
-                    .tri {
-                        position: absolute;
-                        left: 30px;
-                        top: -8px;
-                        border: 5px solid #f4f2f1;
-                        border-right-color: transparent;
-                        border-left-color: transparent;
-                        border-bottom-color: transparent;
-                    }
-                    .order {
-                        padding: 0 10px;
-                        margin-left: 2px;
-                        &:hover {
-                            background: #999;
-                            color: #fff;
-                        }
-                    }
-                }
-            }
+            border-bottom: 1px solid #eceef1;
+            line-height: 45px;
+            background: #f4f8fb;
+            padding-left: 60px;
         }
         @media (max-width: 480px) {
             .abstract {

@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Modal, Input } from 'antd';
+import { useHistory, useLocation } from 'react-router-dom';
 import Img from 'react-image';
-import { fetch } from 'whatwg-fetch';
-import { check } from 'utils/api';
+import query from 'utils/query';
+import Search from 'components/search';
 import { traceEvent } from 'utils/ga';
 import UserContext from 'contexts/user';
 import earth from 'images/earth.png';
 import logo from 'images/soso.png';
-import sup from 'images/support.jpeg';
 import './index.less';
 
 export default ({active, showLogo})=> {
@@ -16,7 +14,8 @@ export default ({active, showLogo})=> {
   const listenerRef = useRef();
   const [showProfile, updateShowProfile] = useState(false);
   const info = useContext(UserContext);
-
+  const queryObj = query(useLocation());
+ 
   useEffect(()=> {
     return ()=> {
       document.removeEventListener('click', listenerRef.current, false);
@@ -51,92 +50,33 @@ export default ({active, showLogo})=> {
       return !x;
     });
   };
-  
-
-  const record = function() {
-    // if(!info.logined) {
-    //   return Modal.confirm({
-    //     title: '抱歉没有登录，不能使用“收录博客”！',
-    //     okText: '去登录',cancelText: '不了',
-    //     onOk: ()=> window.location.href = '/api/snake/github/'
-    //   });
-    // }
-    window.recordUrl = '';
-    Modal.confirm({
-      title: '请输入要填写的地址！',
-      content: <Input onChange={(event)=> {
-        window.recordUrl = event.target.value;
-      }}/>,
-      okText: '确定', cancelText: '取消',
-      onOk: ()=> {
-        if (!window.recordUrl) {
-          Modal.error({title: '请填写url地址！'});
-          return Promise.reject('-1');
-        }
-        return check(window.recordUrl).then(data=> {
-          if(data) {
-            return fetch(`/api/snake/blog/add?u=${window.recordUrl}`)
-            .then((response)=> response.json())
-            .then(function(res) {
-              if(res.code!== 10000) {
-                Modal.error({title: res.msg});
-                return Promise.reject('-1');
-              } else {
-                Modal.info({title: res.data})
-              }
-            })
-          } else {
-            Modal.error({title: '输入的不是有效的url！'});
-            return Promise.reject('-1');
-          }
-        });
-      }
-    });
-  }
 
   const login = function(url) {
     traceEvent('header', 'login', '');
     window.open(url);
-  }
-
-  const support = function() {
-    Modal.info({
-      title: '维护不易，希望能多多支持下',
-      width: 400, okText: '关闭',
-      content: <img style={{width: '250px'}} src={sup} />
-    })
-  }
+  };
 
   return (
     <div className='header'>
-      {
-        showLogo && <div className='logo'>
+      <div className='logo'>
         <img src={logo} alt='logo' onClick={()=> router('/')}/>
       </div>
-      }
       <div className='container'>
-        <div className='links'>
-            <span className={active === 'yesterday' ? 'hot active' : 'hot'} onClick={()=> history.push('/yesterday')}><b className='tri'></b>昨日博文<b className='num'></b></span>
-            <span className={active === 'blogs' ? 'hot active' : 'hot'} onClick={()=> history.push('/blogs')}><b className='iconfont icon-hot hot'><b className='tri'></b></b>热门博客</span>
-            <span className={active === 'books' ? 'hot active' : 'hot'} onClick={()=> history.push('/books')}><b className='iconfont icon-good'></b><b className='tri'></b>好书推荐</span>
-            <span onClick={record}>收录博客</span>
-            <span onClick={()=> window.open("https://github.com/funeyu/snake-web-server/issues/1")}>功能建议</span>
-            <span onClick={support}>支持一下</span>
-        </div>
+      <Search {...queryObj}/>
         <div className='user'>
         {
-          !info.logined ? <span className='login' href='' onClick={()=>login('/api/snake/github/') }>登录</span>
-            : <div className='avatar'>
-            <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
-              unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 
-            />
-            <div className='dropdown' style={{display: showProfile ? 'block' : 'none'}}>
-              <span className='tri'></span>
-              <span className='link' onClick={()=> router('/profile')}>收藏<b>({info.collect})</b></span>
-              <div role='none' className='line'></div>
-              <span className='link' onClick={()=> router('/profile')}>点赞/踩<b>({info.star}/{info.unstar})</b></span>
-            </div>
-          </div>
+          // !info.logined ? <span className='login' href='' onClick={()=>login('/api/snake/github/') }>登录</span>
+          //   : <div className='avatar'>
+          //   <Img alt='avatar' onClick={setShowProfile} id='profile-avatar' src={[info.avatar]} 
+          //     unloader={<img alt='avatar' src={earth} onClick={setShowProfile} id='profile-avatar'/>} 
+          //   />
+          //   <div className='dropdown' style={{display: showProfile ? 'block' : 'none'}}>
+          //     <span className='tri'></span>
+          //     <span className='link' onClick={()=> router('/profile')}>收藏<b>({info.collect})</b></span>
+          //     <div role='none' className='line'></div>
+          //     <span className='link' onClick={()=> router('/profile')}>点赞/踩<b>({info.star}/{info.unstar})</b></span>
+          //   </div>
+          // </div>
         }
         </div>
       </div>

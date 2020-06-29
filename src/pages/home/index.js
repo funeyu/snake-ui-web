@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import Header from 'components/header';
 import api from 'hooks/apiHook';
-import moment from 'moment';
+import TimeAgo from 'javascript-time-ago';
+import zh from 'javascript-time-ago/locale/zh';
 import Preview from 'components/preview';
 import { postJson } from 'utils/api';
 import './index.less';
+
+TimeAgo.addLocale(zh);
+const timeAgo = new TimeAgo('zh');
 
 export default ()=> {
   const [type, updateType] = useState(2);
@@ -38,8 +42,7 @@ export default ()=> {
           <main>
             <div className='aside-list'>
               <div className='tags'>
-                <span className='iconfont icon-hot hot'>今日热榜：</span>
-                <span className='tag'>博客</span>
+                <span className='iconfont icon-hot hot'>热榜：</span>
                 <span className={`${type === 2  ? 'tag active' : 'tag' }`} onClick={()=> changeType(2)}>黑客</span>
                 <span className={`${type === 3  ? 'tag active' : 'tag' }`} onClick={()=> changeType(3)}>社区</span>
                 <span className={`${type === 4  ? 'tag active' : 'tag' }`} onClick={()=> changeType(4)}>视频</span>
@@ -67,7 +70,7 @@ export default ()=> {
                               <div className='con'>
                                   <h3>{t.title}</h3>
                                   {
-                                    !!t.timestamp && <div className='time'>创建于: {moment(t.timestamp * 1000).format('YYYY-MM-DD')}</div>
+                                    !!t.timestamp && <div className='time'>创建于: {timeAgo.format(t.timestamp * 1000)}</div>
                                   }
                               </div>
                           </article>

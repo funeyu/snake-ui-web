@@ -5,7 +5,6 @@ import { traceEvent } from 'utils/ga';
 import Pagination from '@material-ui/lab/Pagination';
 import earth from 'images/earth.png';
 import Header from 'components/header';
-import Footer from 'components/footer';
 import './index.less';
 
 const TypeMap = {
@@ -55,9 +54,12 @@ export default ()=> {
     };
 
     const changePage = function(event, pageNum) {
-        console.log('page', pageNum);
         setPage(pageNum);
-        searchApi({type, pageNum});
+        let query = {type, pageNum};
+        if(value) {
+            query.title = value;
+        }
+        searchApi(query, !!value);
     };
 
     const changeType = function(type) {
@@ -84,7 +86,6 @@ export default ()=> {
     return(
         <div className='y'>
             <Header active='yesterday' showLogo/>
-            <Footer />
             <main>
                 <div className='tags'>
                     <span onClick={()=> changeType(TypeMap.all)} className={`${type===TypeMap.all ? 'tag selected': 'tag'}`}>全部<span className='num'>{info.total}</span></span>
@@ -96,11 +97,12 @@ export default ()=> {
                     <span onClick={()=> changeType(TypeMap.pics)} className={`${type===TypeMap.pics ? 'tag selected': 'tag'}`}>图集<span className='num'>{info.pics}</span></span>
                     <span onClick={()=> changeType(TypeMap.other)} className={`${type===TypeMap.other ? 'tag selected': 'tag'}`}>其他<span className='num'>{info.other}</span></span>
                 </div>
+                <div style={{fontSize: '14px', color: '#aaa'}}>分类还有问题，我这人工智能不智能有点智障，等我驯服它，再修改此处分类，敬请期待！！</div>
                 {
                     type === TypeMap.all && <div className='search'>
                         <span className='area'>
                         <input className='input' placeholder='' value={value} onChange={onChange} />
-                        <input className='button' type='submit' value='搜一下' onClick={onSubmit} />
+                        <input style={{top: 0}} className='button' type='submit' value='搜一下' onClick={onSubmit} />
                         </span>
                     </div>
                 }

@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
-import { message } from 'antd';
 import { traceEvent } from 'utils/ga';
 import Header from 'components/header';
 import UserContext from 'contexts/user';
@@ -60,7 +59,6 @@ export default ()=> {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({type: 3, info: {domain}})
     }).then(function(items) {
-        message.info('操作成功！');
         api(where.lang, where.type);
       }).catch(function(ex) {
         console.log('parsing failed', ex);

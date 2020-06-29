@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { traceEvent } from 'utils/ga';
 import './index.less';
@@ -7,26 +7,31 @@ const Placeholders = {
   'blog': '搜索千万个人博客，寻找有趣思想',
   'movie': '搜索电影，畅快无广告',
   'tv': '追剧永不停息',
-  'dongman': '搜索动漫，回家看动漫去吧',
+  'animation': '搜索动漫，回家看动漫去',
   'music': '搜索音乐，让耳朵欢乐起来',
   'tool': '搜索好用的工具， 让你工作效率嗖嗖的',
   'hot': '搜索热搜榜，这里有互联网人的记忆',
 };
 const Types = {
-  'blog': '博客', 'movie': '电影', 'tv': '电视', 'dongman': '动漫', 'music': '音乐', 'tool': '工具', 'hot': '热榜'
+  'blog': '博客', 'movie': '电影', 'tv': '电视', 'animation': '动漫', 'music': '音乐', 'tool': '工具', 'hot': '热榜'
 };
 
-export default ({keyword=''})=> {
+export default ({keyword='', type})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
-    const [type, setType] = useState('blog');
+    const [t, setType] = useState('blog');
 
     const history = useHistory();
+    useEffect(()=> {
+      if(type && type !== t) {
+        setType(type);
+      }
+    }, [type]);
 
     const enter = function(event) {
       if (event.charCode === 13) {
         if (event.target.value) {
           traceEvent('search', 'enter', event.target.value);
-          history.push(`/search?keyword=${event.target.value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
+          history.push(`/search?keyword=${event.target.value}&type=${t}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
         } else {
           history.push('/');
         }
@@ -42,7 +47,11 @@ export default ({keyword=''})=> {
         return history.push('/');
       }
       traceEvent('search', 'click', value);
-      history.push(`/search?keyword=${value}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
+      history.push(`/search?keyword=${value}&type=${t}&timestamp=${Math.ceil(+ new Date() / 3000)}`);
+    };
+
+    const yAdd = function() {
+      history.push(`/yesterday?type=${t}`);
     };
 
     const renderDuiGou = function() {
@@ -51,19 +60,18 @@ export default ({keyword=''})=> {
     return (
       <div className='search'>
         <span className='area'>
-          <input className='input' placeholder={Placeholders[type]} onKeyPress={enter} value={value} onChange={onChange} />
-          <span className='hotboard'>{Types[type]}
+          <input className='input' placeholder={Placeholders[t]} onKeyPress={enter} value={value} onChange={onChange} />
+          <span className='hotboard'>{Types[t]}
             <span className='hidden'>
               <span className='up'></span>
-              <span className='one' onClick={()=> setType('blog')}>{type === 'blog' && renderDuiGou()}博客</span>
-              <span className='one' onClick={()=> setType('movie')}>{type === 'movie' && renderDuiGou()}电影</span>
-              <span className='one' onClick={()=> setType('tv')}>{type === 'tv' && renderDuiGou()}电视</span>
-              <span className='one' onClick={()=> setType('dongman')}>{type === 'dongman' && renderDuiGou()}动漫</span>
-              <span className='one' onClick={()=> setType('tool')}>{type === 'tool' && renderDuiGou()}工具</span>
-              <span className='one' onClick={()=> setType('hot')}>{type === 'hot' && renderDuiGou()}热榜</span>
+              <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
+              <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
+              <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
+              <span className='one' onClick={()=> setType('animation')}>{t === 'dongman' && renderDuiGou()}动漫</span>
             </span>
           </span>
           <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />
+          { t === 'blog' &&<span className='yblog' onClick={yAdd}>昨日新增<span className='icon'></span></span> }
         </span>
       </div>
     )

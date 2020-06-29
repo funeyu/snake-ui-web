@@ -41,7 +41,7 @@
                 top: 30px;
                 right: 0;
                 z-index: 900;
-                height: 120px; width: 60px;
+                height: 80px; width: 60px;
                 border: 1px solid #ccc;
                 background: #f4f8fb;
                 border-bottom-left-radius: 2px;
@@ -105,6 +105,30 @@
             line-height: 30px;
             width: 15%;
             font-weight: 700;
+        }
+        .yblog {
+            cursor: pointer;
+            color: #87969d;
+            font-size: 12px;
+            position: absolute;
+            top: 2px;
+            font-weight: 600;
+            right: -65px;
+            width: 60px;
+            &:hover {
+                color: #2BCF61;
+                .icon {
+                    background-color: #2BCF61;
+                }
+            }
+            .icon {
+                position: absolute;
+                right: 4px;
+                top: 20px;
+                background-color: #87969d;
+                height: 7px; width: 7px;
+                border-radius: 7px;
+            }
         }
         @media (max-width: 480px) {
             .button {

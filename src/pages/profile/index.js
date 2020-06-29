@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Img from 'react-image';
-import { Modal } from 'antd';
 import { fetch } from 'whatwg-fetch';
 import ListItem from 'components/list-item';
 import soso from '../../images/soso.png';
@@ -58,7 +57,7 @@ export default ()=> {
   }
 
   const comeSoon = function() {
-    Modal.info({title: '待开发, 敬请期待！'});
+
   }
   return (
     <div className='profile'>

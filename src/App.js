@@ -2,7 +2,7 @@ import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { GaListener } from './components/ga-listener';
-
+import Loading from './components/loading';
 import UserContext from './contexts/user';
 
 import UserInfoHook from './hooks/userInfoHook';
@@ -20,7 +20,7 @@ function App() {
   return (
     <UserContext.Provider value={userInfo}>
       <Router>
-        <Suspense fallback={<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>加载中......</div>}>
+        <Suspense fallback={<Loading />}>
         <GaListener>
           <Route path='/' exact>
             <Home />

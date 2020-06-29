@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Loading from 'components/loading';
 import logo from 'images/soso.png';
 import './index.less';
 
@@ -38,17 +39,9 @@ export default ({detail})=> {
     {
       !detail && <div className='notes'>
         <img src={logo} />
-        <p>点击左侧某一个，在此预览</p>
+        <p>点击左侧一下，在此预览</p>
       </div>
     }
-    {loading &&
-      <div class="loading">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    }
+    {loading && <Loading />}
   </div>
 }

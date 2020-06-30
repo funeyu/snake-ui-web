@@ -32,6 +32,8 @@ export default ()=> {
   };
 
   const changeType = function(type) {
+    updateDi(0);
+    updateDetail('');
     updateType(type);
   };
 

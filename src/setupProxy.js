@@ -4,7 +4,7 @@ module.exports = function(app) {
     app.use(
       '/api',
       proxy({
-        target: 'http://xiaoshesoso.com/',
+        target: 'http://127.0.0.1:8090/',
         changeOrigin: true,
       })
     );

@@ -9,6 +9,55 @@ import query from 'utils/query';
 import './index.less';
 
 const Favicons = {
+  
+  "https://www.lizi14.com": {
+    source: "栗子影视", favicon: "https://www.lizi14.com/Tpl/dc06/Img/favicon.ico"
+  },
+  "https://www.fydy8.com": {
+    source: "飞鱼电影", favicon: "https://www.fydy8.com/statics/img/favicon.ico"
+  },
+  "https://www.duopian.cc": {
+    source: "多片电影网", favicon: "https://www.duopian.cc/template/duopian/asset/img/favicon.ico"
+  },
+  "https://www.feikong.cc": {
+    source: "飞空精品影院", favicon: "https://www.feikong.cc/Tpl/feikong/Images/favicon.ico"
+  },
+  "https://www.gaochao.tv": {
+    source: "高潮影院", favicon: "https://www.gaochao.tv/favicon.ico"
+  },
+  "https://www.2346.me": {
+    source: "斗驴影视", favicon: "https://www.2346.me/template/mytheme/statics/image/20200430/70b31cc0b.ico"
+  },
+  "https://www.xigua00.com": {
+    source: "西瓜影院", favicon: "https://www.xigua00.com/favicon.ico"
+  },
+  "https://www.20sw.com": {
+    source: "狮王影视", favicon: "https://www.20sw.com/statics/img/favicon.ico"
+  },
+  "https://www.6zee.com": {
+    source: "6zee影院", favicon: "https://www.6zee.com/template/conch/asset/img/favicon.png"
+  },
+  "https://www.cef2.com": {
+    source: "星空影院", favicon: ""
+  },
+  "https://www.guojuren.com": {
+    source: "锅剧人", favicon: "https://www.guojuren.com/statics/img/favicon.ico"
+  },
+  "https://www.haha1000.com": {
+    source: "开心影院", favicon: "https://www.haha1000.com/favicon.ico"
+  },
+  "https://www.laobage.com": {
+    source: "老八哥", favicon: "https://www.laobage.com/favicon.ico"
+  },
+  "https://cdn.jsdelivr.net": {
+    source: "29影院", favicon: "https://cdn.jsdelivr.net/gh/amujie/mojia@master/asset/img/favicon.png"
+  },
+  "https://www.huan86.com": {
+    source: "欢欢影视", favicon: "https://www.huan86.com/favicon.ico"
+  },
+  "https://www.jinqiangyu.cc": {
+    source: "金枪鱼影院", favicon: "https://www.jinqiangyu.cc/favicon.ico"
+  },
   "https://007ys.cn": {
     source: "小小影视", favicon: "https://007ys.cn/template/vfed/asset/img/favicon.png"
   },
@@ -180,7 +229,7 @@ export default ({l, keywords, mode, onClick, operation, activeId})=> {
       let cc = [h, '://', o].join('');
       console.log('cc', cc);
       const favicon = (Favicons[cc] || {}).favicon;
-      return <img className='avatar' alt='avatar' src={favicon} />
+      return <Img className='avatar' alt='avatar' src={[favicon]} unloader={<img className='avatar' alt='avatar' src={earth} />} />
     }
     if (item.favicon) {
       return <Img className='avatar' alt='avatar' src={[item.favicon]} unloader={<img className='avatar' alt='avatar' src={earth} />}/>

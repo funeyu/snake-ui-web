@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route,  Switch } from 'react-router-dom';
 
 import { GaListener } from './components/ga-listener';
 import Loading from './components/loading';
@@ -22,6 +22,7 @@ function App() {
       <Router>
         <Suspense fallback={<Loading />}>
         <GaListener>
+          <Switch>
           <Route path='/' exact>
             <Home />
           </Route>
@@ -40,6 +41,7 @@ function App() {
           <Route path="*">
             <Home />
           </Route>
+          </Switch>
           </GaListener>
         </Suspense>
       </Router>

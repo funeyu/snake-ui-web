@@ -37,6 +37,9 @@ function App() {
           <Route path='/profile'>
             <Profile />
           </Route>
+          <Route path="*">
+            <Home />
+          </Route>
           </GaListener>
         </Suspense>
       </Router>

@@ -18,7 +18,7 @@ const Types = {
 
 export default ({keyword='', type})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
-    const [t, setType] = useState('blog');
+    const [t, setType] = useState('movie');
 
     const history = useHistory();
     useEffect(()=> {
@@ -61,13 +61,13 @@ export default ({keyword='', type})=> {
       <div className='search'>
         <span className='area'>
           <input className='input' placeholder={Placeholders[t]} onKeyPress={enter} value={value} onChange={onChange} />
-          <span className='hotboard'>{Types[t]}
+          <span className='hotboard'>{Types[t]}<b className='dropdown'></b>
             <span className='hidden'>
               <span className='up'></span>
-              <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
               <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
               <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
               <span className='one' onClick={()=> setType('animation')}>{t === 'dongman' && renderDuiGou()}动漫</span>
+              <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
             </span>
           </span>
           <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />

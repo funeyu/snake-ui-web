@@ -57,7 +57,7 @@ export default ()=> {
                     {
                       hots && hots[type].map((h, i)=> {
                         return <li key={i} className={i === domainIndex ? 'selected' : ''} onClick={()=> updateDomain(i)}>
-                          <img src={h.favicon} alt='favicon' /> {h.title}
+                          <img src={h.favicon} alt='favicon' /> <span className='title'>{h.title}</span>
                         </li>
                       })
                     }

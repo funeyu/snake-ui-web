@@ -54,7 +54,14 @@
 .collapsed {
     background-color: #fff;
     position: absolute;
-    width: 100%;
+    width: 100%!important;
     left: 0;
     transition:  width .3s ease;
+}
+
+
+@media(max-width: 480px) {
+    .preview {
+        width: 50%;
+    }
 }

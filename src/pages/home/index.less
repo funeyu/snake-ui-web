@@ -27,6 +27,20 @@
             color: #fff;
         }
     }
+    @media(max-width: 480px) {
+        .tags {
+            width: 100%;
+            padding: 0;
+            .hot {
+                display: none;
+            }
+            .tag {
+                margin: 0 5px;
+                border-radius: 2px;
+                padding: 0 6px;
+            }
+        }
+    }
 
     .flip-wrap {
         display: flex;
@@ -62,6 +76,25 @@
         font-size: 14px;
         .aside-list {
             width: 600px;
+        }
+        @media(max-width: 480px) {
+            .aside-list {
+                width: 50%;
+                aside {
+                    flex: 0.5;
+                    .bottom {
+                        display: none;
+                    }
+                }
+                ul {
+                    .title {
+                        display: none;
+                    }
+                    li {
+                        padding: 10px 0 10px 8px;
+                    }
+                }
+            }
         }
         .aside-wrap {
             display: flex;

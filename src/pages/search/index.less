@@ -6,16 +6,6 @@
                 float: right;
             }
         }
-        @media (max-width: 480px) {
-            .container {
-                .links {
-                    display: none;
-                }
-                .user .login {
-                    display: none;
-                }
-            }
-        }
     }
     main {
         display: flex;
@@ -42,20 +32,24 @@
             background: #f4f8fb;
             padding-left: 60px;
         }
-        @media (max-width: 480px) {
-            .abstract {
-                width: auto;
-            }
-        }
     }
     @media (max-width: 480px)  {
+        main {
+            .aside-list {
+                width: 50%;
+            }
+        }
         .result-list {
-            margin-left: 15px;
+            margin-left: 0;
             width: auto;
             .result {
                 height: calc(100vh - 180px);
                 overflow-y: scroll;
                 -webkit-overflow-scrolling: touch;
+                padding-left: 10px;
+            }
+            .abstract {
+                padding-left: 6px;
             }
         }
     }

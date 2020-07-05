@@ -60,6 +60,7 @@ export default ({active, showLogo})=> {
     <div className='header'>
       <div className='logo'>
         <img src={logo} alt='logo' onClick={()=> router('/')}/>
+        <a className='domain' href="https://xiaoshesoso.com">www.xiaoshesoso.com</a>
       </div>
       <div className='container'>
       <Search {...queryObj}/>

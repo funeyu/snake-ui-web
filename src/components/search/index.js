@@ -5,15 +5,11 @@ import './index.less';
 
 const Placeholders = {
   'blog': '搜索千万个人博客，寻找有趣思想',
-  'movie': '输入电影名称，搜索电影，畅快无广告',
-  'tv': '输入剧名，追剧永不停息',
-  'animation': '输入动漫名称，回家看动漫去',
-  'music': '搜索音乐，让耳朵欢乐起来',
   'tool': '搜索好用的工具， 让你工作效率嗖嗖的',
   'hot': '搜索热搜榜，这里有互联网人的记忆',
 };
 const Types = {
-  'blog': '博客', 'movie': '电影', 'tv': '电视', 'animation': '动漫', 'music': '音乐', 'tool': '工具', 'hot': '热榜'
+  'blog': '博客', 'hot': '热榜'
 };
 
 export default ({keyword='', type})=> {
@@ -65,6 +61,7 @@ export default ({keyword='', type})=> {
             <span className='hidden'>
               <span className='up'></span>
               <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
+              <span className='one' onClick={()=> setType('hot')}>{t === 'hot' && renderDuiGou()}热榜</span>
             </span>
           </span>
           <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />

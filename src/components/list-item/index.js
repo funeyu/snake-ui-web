@@ -6,6 +6,7 @@ import TimeAgo from 'javascript-time-ago';
 import UserContext from 'contexts/user.js';
 import zh from 'javascript-time-ago/locale/zh';
 import query from 'utils/query';
+import logo from 'images/favicon.png';
 import './index.less';
 
 const Favicons = {
@@ -244,6 +245,7 @@ export default ({l, keywords, mode, onClick, operation, activeId})=> {
         <div className='link title' href={l.url} target='_blank'>
           {renderTitle(l.title, keywords)}
         </div>
+        <div className='friend-widget'><img src={logo} alt='friend' /></div>
       </div>
       <div className='timeAgo'>创建于:{l.timeStamp ? timeAgo.format(l.timeStamp * 1000) : '暂无'}</div>
       <div className='description'>{l.description}</div>

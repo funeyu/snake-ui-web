@@ -54,7 +54,7 @@ export default ()=> {
         .then(function(res) {
           updateList({
             data: res.data.items,
-            keywords: res.keywords,
+            keywords: res.data.keywords,
             total: res.data.total
           });
           setActivePage(page);

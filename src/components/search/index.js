@@ -4,17 +4,20 @@ import { traceEvent } from 'utils/ga';
 import './index.less';
 
 const Placeholders = {
+  'movies': '全网搜索电影',
+  'tvs': '全网搜索电视剧,追剧,免费看',
+  'animations': '全网搜番,动漫随心看',
   'blog': '搜索千万个人博客，寻找有趣思想',
   'tool': '搜索好用的工具， 让你工作效率嗖嗖的',
   'hot': '搜索热搜榜，这里有互联网人的记忆',
 };
 const Types = {
-  'blog': '博客', 'hot': '热榜'
+  'blog': '博客', 'movie': '电影', 'tv': '电视', 'animation': '动漫'
 };
 
 export default ({keyword='', type})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
-    const [t, setType] = useState('blog');
+    const [t, setType] = useState('movie');
 
     const history = useHistory();
     useEffect(()=> {
@@ -60,8 +63,10 @@ export default ({keyword='', type})=> {
           <span className='hotboard'>{Types[t]}<b className='dropdown'></b>
             <span className='hidden'>
               <span className='up'></span>
+              <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
+              <span className='one' onClick={()=> setType('mv')}>{t === 'mv' && renderDuiGou()}电视</span>
+              <span className='one' onClick={()=> setType('animation')}>{t === 'animation' && renderDuiGou()}动漫</span>
               <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
-              <span className='one' onClick={()=> setType('hot')}>{t === 'hot' && renderDuiGou()}热榜</span>
             </span>
           </span>
           <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />

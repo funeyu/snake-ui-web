@@ -1,3 +1,25 @@
+.types {
+    width:900px;
+    margin: 0 auto 5px auto;
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    .type {
+        line-height: 30px;
+        border-radius: 15px;
+        padding:5px 20px;
+        cursor: pointer;
+        &:hover {
+            background: rgba(45, 207, 98, 0.1);
+            color: #2DCF62;
+        }
+    }
+
+    .active {
+        background: rgba(45, 207, 98, 0.1);
+        color: #2DCF62;
+    }
+}
 .search {
     display: flex;
     justify-content: center;
@@ -14,7 +36,23 @@
         display:inline-block;
         border-radius: 4px;
         position: relative;
-        width: 600px;
+        width: 900px;
+        .eye {
+            height: 20px;
+            width: 20px;
+            border-radius: 20px;
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            background: #fff;
+            #inner {
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+                background: #000;
+                margin: 5px;
+            }
+        }
         .hotboard {
             cursor: pointer;
             font-size: 13px;
@@ -92,20 +130,25 @@
         .input {
             border: 1px solid #eceef1;
             border-right: none;
-            border-top-left-radius: 2px;
-            border-bottom-left-radius: 2px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
             box-sizing: border-box;
             width: 85%;
             font-size: 14px;
-            padding-right: 80px;
+            padding-left: 30px;
+            height: 45px;
+            font-weight: 600;
             &:focus {
                 border-color: #2BCF61;
+            }
+            &::placeholder {
+                color: #cacaca;
             }
         }
         .button {
             position: absolute;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
             background-color: #2BCF61;
             color: #fff;
             right: 0;
@@ -114,8 +157,9 @@
             outline: none;
             border: none;
             text-align: center;
-            font-size: 14px;
-            line-height: 30px;
+            font-size: 17px;
+            line-height: 45px;
+            height: 45px;
             width: 15%;
             font-weight: 700;
         }

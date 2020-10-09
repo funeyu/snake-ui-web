@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import TimeAgo from 'javascript-time-ago';
 import zh from 'javascript-time-ago/locale/zh';
 import Search from 'components/search';
+import Footer from 'components/footer';
 import logo from 'images/soso.png';
 import './index.less';
 
@@ -16,12 +17,15 @@ export default ()=> {
         <div className='logo'>
           <img src={logo} />
         </div>
-        <div className='note'>
-          <p>全网搜索免费电影,电视剧,动漫(百万视频资源),有趣的个人博客(千万个人博客)</p>
-          <p>www.xiaoshesoso.com 搜罗有趣的小东西</p>
-          <p>仅限个人交流学习，搜索的内容来源第三方网站</p>
-        </div>
         <Search {...queryObj}/>
+        <div className='topic'>
+          <span className='one'>信条</span>
+          <span className='one'>八佰</span>
+          <span className='one'>唐人街探案3</span>
+          <span className='one'>釜山行3</span>
+          <span className='one'>花木兰</span>
+        </div>
+        <Footer />
       </div>
   );
 }

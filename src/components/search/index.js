@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import { traceEvent } from 'utils/ga';
 import './index.less';
@@ -18,6 +18,9 @@ const Types = {
 export default ({keyword='', type})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
     const [t, setType] = useState('movie');
+    const [searchFocus, updateFocus] = useState(false);
+    const [eyePosition, updateEyePosition] = useState({x:0, y:0});
+    const focusStateRef = useRef(false);
 
     const history = useHistory();
     useEffect(()=> {
@@ -25,6 +28,28 @@ export default ({keyword='', type})=> {
         setType(type);
       }
     }, [type]);
+
+    const mousemove = function(e) {
+      if (focusStateRef.current) {
+        return;
+      }
+      const { pageX, pageY } = e;
+      // 中心点为：（1270， 310）
+      console.log(pageX, pageY);
+      const distance = Math.sqrt((pageX - 1270)**2 + (pageY - 310)**2);
+      console.log(distance);
+      const x = ((pageX - 1270) / distance) * 5;
+      const y = ((pageY - 310) / distance) * 5;
+      console.log('x, y', x, y);
+      updateEyePosition({
+        x, y
+      });
+    }
+
+    useEffect(()=> {
+      
+      document.body.addEventListener("mousemove", mousemove);
+    }, [])
 
     const enter = function(event) {
       if (event.charCode === 13) {
@@ -41,6 +66,15 @@ export default ({keyword='', type})=> {
       setValue(event.target.value);
     };
 
+    const onFocus = function() {
+      updateEyePosition({x:0, y: 0});
+      focusStateRef.current = true;
+    }
+
+    const onBlur = function() {
+      focusStateRef.current = false;
+    }
+
     const onSubmit = function(event) {
       if(!value) {
         return history.push('/');
@@ -52,27 +86,34 @@ export default ({keyword='', type})=> {
     const yAdd = function() {
       history.push(`/yesterday?type=${t}`);
     };
-
-    const renderDuiGou = function() {
-      return <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
-    }
-    console.log('t', t)
+    
     return (
-      <div className='search'>
-        <span className='area'>
-          <input className='input' placeholder={Placeholders[t]} onKeyPress={enter} value={value} onChange={onChange} />
-          <span className='hotboard'>{Types[t]}<b className='dropdown'></b>
-            <span className='hidden'>
-              <span className='up'></span>
-              <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
-              <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
-              <span className='one' onClick={()=> setType('animation')}>{t === 'animation' && renderDuiGou()}动漫</span>
-              <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
-            </span>
+      <div>
+        <div className='types'>
+          <span className='type active'>电影</span>
+          <span className='type'>电视</span>
+          <span className='type'>动漫</span>
+          <span className='type'>博客</span>
+        </div>
+        <div className='search'>
+          <span className='area'>
+            <input className='input' placeholder={Placeholders[t]} onKeyPress={enter} value={value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} />
+            {/* <span className='hotboard'>{Types[t]}<b className='dropdown'></b>
+              <span className='hidden'>
+                <span className='up'></span>
+                <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
+                <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
+                <span className='one' onClick={()=> setType('animation')}>{t === 'animation' && renderDuiGou()}动漫</span>
+                <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
+              </span>
+            </span> */}
+            <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />
+            <div className='eye'>
+              <div id='inner' style={{transform: `translate(${eyePosition.x}px, ${eyePosition.y}px)`}}></div>
+            </div>
+            { t === 'blog' &&<span className='yblog' onClick={yAdd}>昨日新增<span className='icon'></span></span> }
           </span>
-          <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />
-          { t === 'blog' &&<span className='yblog' onClick={yAdd}>昨日新增<span className='icon'></span></span> }
-        </span>
+        </div>
       </div>
     )
 }

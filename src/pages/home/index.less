@@ -1,7 +1,7 @@
 .home {
-   margin-top: 100px;
    .logo {
-      width: 200px;
+      padding-top: 100px;
+      width: 300px;
       margin: 0 auto;
       img {
          width: 100%;
@@ -13,17 +13,20 @@
    .button {
       top: 0!important;
    }
-   .note {
-      color: #aaa;
-      width: 600px;
-      margin: -15px auto 0 auto;
+   .topic {
+      width:600px;
+      font-size: 12px;
+      margin: 10px auto 0 auto;
+      color: #666;
       text-align: center;
+      .one {
+         line-height: 40px;
+         padding: 5px 10px;
+         margin-right: 10px;
+         background: #f3f3f3;
+         cursor: pointer;
+      }
    }
    @media (max-width: 480px)  {
-      .note {
-         width: 100%;
-         padding: 0 10px;
-         box-sizing: border-box;
-      } 
    }
 }

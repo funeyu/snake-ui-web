@@ -16,9 +16,8 @@ export default ()=> {
     const [activePage, setActivePage] = useState(1);
     const [activeId, updateActive] = useState();
     const [loading, updateLoading] = useState(false);
-    const [detail, updateDetail] = useState('');
+    const [detail, updateDetail] = useState({});
     const listenerRef = useRef();
-
 
     useEffect(()=> {
       traceEvent('search', 'click', queryObj.keyword);
@@ -66,7 +65,7 @@ export default ()=> {
     };
 
     const changeItem = function(i) {
-      updateDetail(i.url);
+      updateDetail(i);
       updateActive(i.id);
     };
 
@@ -81,7 +80,7 @@ export default ()=> {
               }
               {
                 list.data && list.data.length > 0 && <div className='abstract'>
-                  搜索到<b>{list.total}</b>条数据
+                  小蛇探到<b>{list.total}</b>条数据
                   {
                       list.total > 0 && <Pagination style={{float: 'right'}} count={Math.ceil(list.total/15)} page={activePage} shape='rounded' size='small' boundaryCount={2}
                         onChange={changePage}

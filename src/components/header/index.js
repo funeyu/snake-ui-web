@@ -63,7 +63,7 @@ export default ({active, showLogo})=> {
         <a className='domain' href="https://xiaoshesoso.com">www.xiaoshesoso.com</a>
       </div>
       <div className='container'>
-      <Search {...queryObj}/>
+      <Search {...queryObj} isHeader={true}/>
         <div className='user'>
         {
           // !info.logined ? <span className='login' href='' onClick={()=>login('/api/snake/github/') }>登录</span>

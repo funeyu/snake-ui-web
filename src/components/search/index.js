@@ -19,7 +19,7 @@ const Types = {
 export default ({keyword='', type, isHeader, changeHot})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
     const [t, setType] = useState('movie');
-    const [modal, updateModal] = useState(true);
+    const [modal, updateModal] = useState(false);
     const [searchFocus, updateFocus] = useState(false);
     const [eyePosition, updateEyePosition] = useState({x:0, y:0});
     const focusStateRef = useRef(false);

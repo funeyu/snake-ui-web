@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
+import Modal from 'react-modal';
 import { traceEvent } from 'utils/ga';
 import './index.less';
 
@@ -18,6 +19,7 @@ const Types = {
 export default ({keyword='', type, isHeader, changeHot})=> {
     const [value, setValue] = useState(window.decodeURIComponent(keyword));
     const [t, setType] = useState('movie');
+    const [modal, updateModal] = useState(true);
     const [searchFocus, updateFocus] = useState(false);
     const [eyePosition, updateEyePosition] = useState({x:0, y:0});
     const focusStateRef = useRef(false);
@@ -102,6 +104,27 @@ export default ({keyword='', type, isHeader, changeHot})=> {
       changeHot(type);
     }
 
+    const askConfirm = function() {
+      const { email, title} = window;
+      fetch(`/api/snake/search/ask`, {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, title})
+      }).then(res=> res.json())
+        .then(data=> {
+          if (data.code === 10000) {
+            alert('操作成功！');
+            updateModal(false);
+          } else {
+            alert(data.msg || '操作失败！');
+          }
+        });
+    }
+
+    const askInput = function(type, e) {
+      window[type] = e.target.value;
+    }
+
     return (
       <div>
         {
@@ -111,11 +134,24 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='tv' ? 'type active': 'type'}`} onClick={()=> changeType('tv')}>电视</span>
               <span className={`${t=='animation' ? 'type active': 'type'}`} onClick={()=> changeType('animation')}>动漫</span>
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
+              <span className='type one active' onClick={()=> updateModal(true)}>
+                <span className='iconfont icon-hot'></span>
+                <span>搜索求助</span>
+              </span>
             </div>
           ): null
         }
         
         <div className='search'>
+          <Modal isOpen={modal}>
+            <div className='ask'>
+              <h2 style={{color: '#2DCF62'}}>填写相关的搜索标题，后台会给做专属的人工搜索</h2>
+              <div style={{margin: '10px 0'}}>要搜索的标题：<input style={{width: 300}} onChange={e=> askInput('title', e)}/></div>
+              <div>填写下email，用于结果推送：<input onChange={e=> askInput('email', e)}/></div>
+              <button style={{color: '#333'}} onClick={()=> updateModal(false)}>取消</button>
+              <button style={{color: '#333'}} onClick={()=> askConfirm()}>确定</button>
+            </div>
+          </Modal>
           <span className='area'>
             <input className='input' placeholder={Placeholders[t]} onKeyPress={enter} value={value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} />
             {

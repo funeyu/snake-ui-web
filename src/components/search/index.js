@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 import { traceEvent } from 'utils/ga';
+import weixin from 'images/weixin.png';
 import './index.less';
 
 const Placeholders = {
@@ -136,7 +137,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
               <span className='type one active' onClick={()=> updateModal(true)}>
                 <span className='iconfont icon-hot'></span>
-                <span>搜索求助</span>
+                <span>加我好友</span>
               </span>
             </div>
           ): null
@@ -145,11 +146,9 @@ export default ({keyword='', type, isHeader, changeHot})=> {
         <div className='search'>
           <Modal isOpen={modal}>
             <div className='ask'>
-              <h2 style={{color: '#2DCF62'}}>填写相关的搜索标题，后台会给做专属的人工搜索</h2>
-              <div style={{margin: '10px 0'}}>要搜索的标题：<input style={{width: 300}} onChange={e=> askInput('title', e)}/></div>
-              <div>填写下email，用于结果推送：<input onChange={e=> askInput('email', e)}/></div>
-              <button style={{color: '#333'}} onClick={()=> updateModal(false)}>取消</button>
-              <button style={{color: '#333'}} onClick={()=> askConfirm()}>确定</button>
+              <h2 style={{color: '#2DCF62'}}>扫一扫，添加好友，入群讨论搜索，资源共享，功能反馈</h2>
+              <img style={{width: '360px'}} src={weixin} />
+              <button style={{color: '#333'}} onClick={()=> updateModal(false)}>关闭</button>
             </div>
           </Modal>
           <span className='area'>

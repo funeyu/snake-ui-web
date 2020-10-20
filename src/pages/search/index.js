@@ -67,6 +67,9 @@ export default ()=> {
     const changeItem = function(i) {
       updateDetail(i);
       updateActive(i.id);
+      if(i.isIframe === 0) {
+        window.open(i.url, "__blank");
+      }
     };
 
     return (

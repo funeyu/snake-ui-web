@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import {fetch} from 'whatwg-fetch';
 import query from 'utils/query';
 import { traceEvent } from 'utils/ga';
+import isPhone from 'utils/isPhone';
 import ListItem from 'components/list-item';
 import Pagination from '@material-ui/lab/Pagination';
 import Header from 'components/header';
@@ -17,15 +18,8 @@ export default ()=> {
     const [activeId, updateActive] = useState();
     const [loading, updateLoading] = useState(false);
     const [detail, updateDetail] = useState({});
-    const [isInPhone, updatePhone] = useState(false);
     const listenerRef = useRef();
 
-    useEffect(()=> {
-      var sUserAgent = navigator.userAgent;
-      if (sUserAgent.indexOf('Android') > -1 || sUserAgent.indexOf('iPhone') > -1){
-        updatePhone(true);
-      }
-    }, []);
     useEffect(()=> {
       traceEvent('search', 'click', queryObj.keyword);
       searchApi(queryObj.keyword, queryObj.type);
@@ -79,6 +73,7 @@ export default ()=> {
       }
     };
 
+    const isInPhone = isPhone();
     return (
       <div className='search-page'>
         <Header />

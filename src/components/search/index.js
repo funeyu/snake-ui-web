@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 import { traceEvent } from 'utils/ga';
+import isPhone from 'utils/isPhone';
 import weixin from 'images/weixin.png';
 import './index.less';
 
@@ -126,6 +127,8 @@ export default ({keyword='', type, isHeader, changeHot})=> {
       window[type] = e.target.value;
     }
 
+    const isInPhone = isPhone();
+    console.log('isInPhone', isInPhone);
     return (
       <div>
         {
@@ -166,7 +169,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
                 </span>
               ) : null
             }
-            <input className='button' type='submit' value='搜搜一下' onClick={onSubmit} />
+            <input className='button' type='submit' value={`${isInPhone ? '搜搜' : '搜搜一下'}`} onClick={onSubmit} />
             <div className='eye'>
               <div id='inner' style={{transform: `translate(${eyePosition.x}px, ${eyePosition.y}px)`}}></div>
             </div>

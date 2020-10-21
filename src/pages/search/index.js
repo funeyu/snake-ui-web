@@ -17,8 +17,15 @@ export default ()=> {
     const [activeId, updateActive] = useState();
     const [loading, updateLoading] = useState(false);
     const [detail, updateDetail] = useState({});
+    const [isInPhone, updatePhone] = useState(false);
     const listenerRef = useRef();
 
+    useEffect(()=> {
+      var sUserAgent = navigator.userAgent;
+      if (sUserAgent.indexOf('Android') > -1 || sUserAgent.indexOf('iPhone') > -1){
+        updatePhone(true);
+      }
+    }, []);
     useEffect(()=> {
       traceEvent('search', 'click', queryObj.keyword);
       searchApi(queryObj.keyword, queryObj.type);
@@ -67,7 +74,7 @@ export default ()=> {
     const changeItem = function(i) {
       updateDetail(i);
       updateActive(i.id);
-      if(i.isIframe === 0) {
+      if(isInPhone || i.isIframe === 0) {
         window.open(i.url, "__blank");
       }
     };
@@ -85,7 +92,7 @@ export default ()=> {
                 list.data && list.data.length > 0 && <div className='abstract'>
                   小蛇探到<b>{list.total}</b>条数据
                   {
-                      list.total > 0 && <Pagination style={{float: 'right'}} count={Math.ceil(list.total/15)} page={activePage} shape='rounded' size='small' boundaryCount={2}
+                      list.total > 0 && <Pagination count={Math.ceil(list.total/15)} page={activePage} shape='rounded' size='small' boundaryCount={2}
                         onChange={changePage}
                       />
                   }
@@ -98,8 +105,9 @@ export default ()=> {
               </ul>
             </div>
           </div>
-
-          <Preview detail={detail}/>
+          {
+            !isInPhone && <Preview detail={detail}/>
+          }
         </main>
       </div>
     )

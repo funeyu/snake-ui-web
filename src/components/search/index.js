@@ -11,11 +11,12 @@ const Placeholders = {
   'tv': '全网搜索电视剧,追剧,免费看',
   'animation': '全网搜番,动漫随心看',
   'blog': '搜索千万个人博客，寻找有趣思想',
+  'book': '搜索书籍,提供相应的下载链接',
   'tool': '搜索好用的工具， 让你工作效率嗖嗖的',
   'hot': '搜索热搜榜，这里有互联网人的记忆',
 };
 const Types = {
-  'blog': '博客', 'movie': '电影', 'tv': '电视', 'animation': '动漫'
+  'blog': '博客', 'movie': '电影', 'tv': '电视', 'animation': '动漫', 'book': '书籍'
 };
 
 export default ({keyword='', type, isHeader, changeHot})=> {
@@ -137,6 +138,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='movie' ? 'type active': 'type'}`} onClick={()=> changeType('movie') }>电影</span>
               <span className={`${t=='tv' ? 'type active': 'type'}`} onClick={()=> changeType('tv')}>电视</span>
               <span className={`${t=='animation' ? 'type active': 'type'}`} onClick={()=> changeType('animation')}>动漫</span>
+              <span className={`${t=='book' ? 'type active': 'type'}`} onClick={()=> changeType('book')}>书籍</span>
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
               <span className='type one active' onClick={()=> updateModal(true)}>
                 <span className='iconfont icon-hot'></span>
@@ -164,6 +166,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
                     <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
                     <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
                     <span className='one' onClick={()=> setType('animation')}>{t === 'animation' && renderDuiGou()}动漫</span>
+                    <span className='one' onClick={()=> setType('book')}>{t === 'book' && renderDuiGou()}书籍</span>
                     <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
                   </span>
                 </span>

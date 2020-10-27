@@ -249,7 +249,7 @@ export default ({l, keywords, mode, onClick, operation, activeId})=> {
       </div>
       <div className='timeAgo'>创建于:{l.timeStamp ? timeAgo.format(l.timeStamp * 1000) : '暂无'}</div>
       <div className='description'>{l.description}</div>
-      <a className='link no-decoration' href={l.url} target='_blank'>{l.url}</a>
+      <a className='link no-decoration' href={l.url} target='_blank'>点击我直达</a>
     </li>
   )
 }

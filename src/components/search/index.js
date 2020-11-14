@@ -104,9 +104,12 @@ export default ({keyword='', type, isHeader, changeHot})=> {
     };
     
     const changeType = function(type) {
-      // setType(type);
-      // changeHot(type);
-      alert('这个功能被人利用搜索不和谐的东西，本意不是这样的，还是原谅站长将功能下架!有啥问题可以加群了解了，对不起~~~');
+      if(type === 'site') {
+        alert('这个功能被人利用搜索不和谐的东西，本意不是这样的，还是原谅站长将功能下架!有啥问题可以加群了解了，对不起~~~');
+      } else {
+        setType(type);
+        changeHot(type);
+      }
     }
 
     const askConfirm = function() {

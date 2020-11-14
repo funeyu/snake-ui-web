@@ -104,8 +104,9 @@ export default ({keyword='', type, isHeader, changeHot})=> {
     };
     
     const changeType = function(type) {
-      setType(type);
-      changeHot(type);
+      // setType(type);
+      // changeHot(type);
+      alert('这个功能被人利用搜索不和谐的东西，本意不是这样的，还是原谅站长将功能下架!有啥问题可以加群了解了，对不起~~~');
     }
 
     const askConfirm = function() {
@@ -139,7 +140,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='movie' ? 'type active': 'type'}`} onClick={()=> changeType('movie') }>电影</span>
               <span className={`${t=='tv' ? 'type active': 'type'}`} onClick={()=> changeType('tv')}>电视</span>
               <span className={`${t=='animation' ? 'type active': 'type'}`} onClick={()=> changeType('animation')}>动漫</span>
-              <span className={`${t=='site' ? 'type active': 'type'}`} onClick={()=> changeType('site')}>网页<span style={{fontSize: '10px'}}>临时开放</span></span>
+              <span className={`${t=='site' ? 'type active': 'type'}`} onClick={()=> changeType('site')}>网页临时开放</span>
               <span className={`${t=='book' ? 'type active': 'type'}`} onClick={()=> changeType('book')}>书籍</span>
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
               <span className='type one active' onClick={()=> updateModal(true)}>
@@ -168,7 +169,6 @@ export default ({keyword='', type, isHeader, changeHot})=> {
                     <span className='one' onClick={()=> setType('movie')}>{t === 'movie' && renderDuiGou()}电影</span>
                     <span className='one' onClick={()=> setType('tv')}>{t === 'tv' && renderDuiGou()}电视</span>
                     <span className='one' onClick={()=> setType('animation')}>{t === 'animation' && renderDuiGou()}动漫</span>
-                    <span className='one' onClick={()=> setType('site')}>{t === 'site' && renderDuiGou()}网页</span>
                     <span className='one' onClick={()=> setType('book')}>{t === 'book' && renderDuiGou()}书籍</span>
                     <span className='one' onClick={()=> setType('blog')}>{t === 'blog' && renderDuiGou()}博客</span>
                   </span>

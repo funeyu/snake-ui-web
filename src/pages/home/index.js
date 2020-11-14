@@ -33,6 +33,7 @@ export default ()=> {
         </div>
         <Search {...queryObj} changeHot={changeHot}/>
         <div className='topic'>
+          用户点赞热榜：
           {
             hot.map(h=> {
               return <span className='one'><a target='_blanck' href={h.url}>{h.title}</a></span>

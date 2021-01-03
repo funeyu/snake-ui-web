@@ -105,7 +105,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
     
     const changeType = function(type) {
       if(type === 'site') {
-        alert('这个功能被人利用搜索不和谐的东西，本意不是这样的，还是原谅站长将功能下架!有啥问题可以加群了解了，对不起~~~');
+        window.open('http://club.xiaoshesoso.com');
       } else {
         setType(type);
         changeHot(type);
@@ -143,7 +143,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='movie' ? 'type active': 'type'}`} onClick={()=> changeType('movie') }>电影</span>
               <span className={`${t=='tv' ? 'type active': 'type'}`} onClick={()=> changeType('tv')}>电视</span>
               <span className={`${t=='animation' ? 'type active': 'type'}`} onClick={()=> changeType('animation')}>动漫</span>
-              <span className={`${t=='site' ? 'type active': 'type'}`} onClick={()=> changeType('site')}>网页临时开放</span>
+              <span className={`${t=='site' ? 'type active': 'type'}`} onClick={()=> changeType('site')}>社区<span className='dot'></span></span>
               <span className={`${t=='book' ? 'type active': 'type'}`} onClick={()=> changeType('book')}>书籍</span>
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
               <span className='type one active' onClick={()=> updateModal(true)}>

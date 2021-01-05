@@ -148,7 +148,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
               <span className='type one active' onClick={()=> updateModal(true)}>
                 <span className='iconfont icon-hot'></span>
-                <span>加我好友</span>
+                <span>加我好友，参与共建</span>
               </span>
             </div>
           ): null
@@ -157,7 +157,7 @@ export default ({keyword='', type, isHeader, changeHot})=> {
         <div className='search'>
           <Modal isOpen={modal}>
             <div className='ask'>
-              <h2 style={{color: '#2DCF62'}}>扫一扫，添加好友，入群讨论搜索，资源共享，功能反馈</h2>
+              <h2 style={{color: '#2DCF62'}}>如果你对小蛇搜搜感兴趣，并且想参与共建，就添加我为好友吧！！</h2>
               <img style={{width: '360px'}} src={weixin} />
               <button style={{color: '#333'}} onClick={()=> updateModal(false)}>关闭</button>
             </div>

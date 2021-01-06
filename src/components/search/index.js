@@ -146,10 +146,10 @@ export default ({keyword='', type, isHeader, changeHot})=> {
               <span className={`${t=='site' ? 'type active': 'type'}`} onClick={()=> changeType('site')}>社区<span className='dot'></span></span>
               <span className={`${t=='book' ? 'type active': 'type'}`} onClick={()=> changeType('book')}>书籍</span>
               <span className={`${t=='blog' ? 'type active': 'type'}`} onClick={()=> changeType('blog')}>博客</span>
-              <span className='type one active' onClick={()=> updateModal(true)}>
+              {/* <span className='type one active' onClick={()=> updateModal(true)}>
                 <span className='iconfont icon-hot'></span>
                 <span>加我好友，参与共建</span>
-              </span>
+              </span> */}
             </div>
           ): null
         }

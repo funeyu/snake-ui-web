@@ -28,18 +28,9 @@ export default ()=> {
 
   return(
       <div className='home'>
-        <div className='logo'>
-          <img src={logo} />
-        </div>
-        <Search {...queryObj} changeHot={changeHot}/>
-        <div className='topic'>
-          用户点赞热榜：
-          {
-            hot.map(h=> {
-              return <span className='one'><a target='_blanck' href={h.url}>{h.title}</a></span>
-            })
-          }
-        </div>
+        <iframe src='http://funeyu.github.io/'>
+          
+        </iframe>
         <Footer />
       </div>
   );

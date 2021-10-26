@@ -28,7 +28,7 @@ export default ()=> {
 
   return(
       <div className='home'>
-        <iframe src='http://funeyu.github.io/'>
+        <iframe src='http://weiwuhui.com/'>
           
         </iframe>
         <Footer />
